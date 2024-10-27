@@ -1,11 +1,24 @@
 package model;
 
 public class Professor {
-	private int cpf;
+	private String codigoProfessor;
+	private long cpf;
 	private String nomeProfessor;
 	private String areaConhecimento;
 	private int qtdPontos;
-	
+
+	public String getCodigoProfessor() {
+		return codigoProfessor;
+	}
+	public void setCodigoProfessor(String codigoProfessor) {
+		this.codigoProfessor = codigoProfessor;
+	}
+	public long getCpf() {
+		return cpf;
+	}
+	public void setCpf(long cpf) {
+		this.cpf = cpf;
+	}
 	public String getNomeProfessor() {
 		return nomeProfessor;
 	}
@@ -24,16 +37,9 @@ public class Professor {
 	public void setQtdPontos(int qtdPontos) {
 		this.qtdPontos = qtdPontos;
 	}
-	public int getCpf() {
-		return cpf;
-	}
-	public void setCpf(int cpf) {
-		this.cpf = cpf;
-	}
 	
 	@Override
 	public String toString() {
-		return "Professor [cpf=" + cpf + ", nomeProfessor=" + nomeProfessor + ", areaConhecimento=" + areaConhecimento
-				+ ", qtdPontos=" + qtdPontos + "]";
+		return getCodigoProfessor() + "," + getCpf() + "," + getNomeProfessor() + "," + getAreaConhecimento() + "," + getQtdPontos() + "\n";
 	}
 }

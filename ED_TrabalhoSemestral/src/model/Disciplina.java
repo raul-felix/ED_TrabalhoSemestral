@@ -3,18 +3,18 @@ package model;
 import java.time.LocalTime;
 
 public class Disciplina {
-	private int codigoDisciplina;
+	private String codigoDisciplina;
 	private String nomeDisciplina;
 	private int diaDaSemana;
 	private LocalTime horarioinicial;
 	private int qtdHorasDiarias;
 	private int codigoProcesso;
-	private int codigoCurso;
+	private String codigoCurso;
 	
-	public int getCodigoDisciplina() {
+	public String getCodigoDisciplina() {
 		return codigoDisciplina;
 	}
-	public void setCodigoDisciplina(int codigoDisciplina) {
+	public void setCodigoDisciplina(String codigoDisciplina) {
 		this.codigoDisciplina = codigoDisciplina;
 	}
 	public String getNomeDisciplina() {
@@ -47,17 +47,15 @@ public class Disciplina {
 	public void setCodigoProcesso(int codigoProcesso) {
 		this.codigoProcesso = codigoProcesso;
 	}
-	public int getCodigoCurso() {
+	public String getCodigoCurso() {
 		return codigoCurso;
 	}
-	public void setCodigoCurso(int codigoCurso) {
+	public void setCodigoCurso(String codigoCurso) {
 		this.codigoCurso = codigoCurso;
 	}
 	
 	@Override
 	public String toString() {
-		return "Disciplina [codigoDisciplina=" + codigoDisciplina + ", nomeDisciplina=" + nomeDisciplina
-				+ ", diaDaSemana=" + diaDaSemana + ", horarioinicial=" + horarioinicial + ", qtdHorasDiarias="
-				+ qtdHorasDiarias + ", codigoProcesso=" + codigoProcesso + ", codigoCurso=" + codigoCurso + "]";
+		return getCodigoDisciplina() + "," + getNomeDisciplina() + "," + getDiaDaSemana() + "," + getHorarioinicial() + "," + getQtdHorasDiarias() + "," + getCodigoProcesso() + "," + getCodigoCurso() + "\n";
 	}
 }

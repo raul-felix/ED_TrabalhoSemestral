@@ -1,32 +1,31 @@
 package model;
 
 public class Inscricao {
-	private int cpf;
-	private int codigoDisciplina;
-	private int codigoProcesso;
+	private long cpf;
+	private String codigoDisciplina;
+	private String codigoProcesso;
 	
-	public int getCpf() {
+	public long getCpf() {
 		return cpf;
 	}
-	public void setCpf(int cpf) {
+	public void setCpf(long cpf) {
 		this.cpf = cpf;
 	}
-	public int getCodigoDisciplina() {
+	public String getCodigoDisciplina() {
 		return codigoDisciplina;
 	}
-	public void setCodigoDisciplina(int codigoDisciplina) {
+	public void setCodigoDisciplina(String codigoDisciplina) {
 		this.codigoDisciplina = codigoDisciplina;
 	}
-	public int getCodigoProcesso() {
+	public String getCodigoProcesso() {
 		return codigoProcesso;
 	}
-	public void setCodigoProcesso(int codigoProcesso) {
+	public void setCodigoProcesso(String codigoProcesso) {
 		this.codigoProcesso = codigoProcesso;
 	}
 	
 	@Override
 	public String toString() {
-		return "Inscricao [cpf=" + cpf + ", codigoDisciplina=" + codigoDisciplina + ", codigoProcesso=" + codigoProcesso
-				+ "]";
+		return getCpf() + "," + getCodigoDisciplina() + "," + getCodigoProcesso() + "\n";
 	}
 }

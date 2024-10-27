@@ -1,14 +1,14 @@
 package model;
 
 public class Curso {
-	private int codigoCurso;
+	private String codigoCurso;
 	private String nomeCurso;
 	private String areaConhecimento;
 	
-	public int getCodigoCurso() {
+	public String getCodigoCurso() {
 		return codigoCurso;
 	}
-	public void setCodigoCurso(int codigoCurso) {
+	public void setCodigoCurso(String codigoCurso) {
 		this.codigoCurso = codigoCurso;
 	}
 	public String getNomeCurso() {
@@ -26,7 +26,6 @@ public class Curso {
 	
 	@Override
 	public String toString() {
-		return "Curso [codigoCurso=" + codigoCurso + ", nomeCurso=" + nomeCurso + ", areaConhecimento="
-				+ areaConhecimento + "]";
+		return getCodigoCurso() + "," + getNomeCurso() + "," + getAreaConhecimento() + "\n";
 	}
 }
