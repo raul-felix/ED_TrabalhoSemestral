@@ -3,18 +3,18 @@ package model;
 import java.time.LocalTime;
 
 public class Disciplina {
-	private String codigoDisciplina;
+	private int codigoDisciplina;
 	private String nomeDisciplina;
-	private int diaDaSemana;
+	private String diaDaSemana;
 	private LocalTime horarioinicial;
 	private int qtdHorasDiarias;
 	private int codigoProcesso;
 	private String codigoCurso;
 	
-	public String getCodigoDisciplina() {
+	public int getCodigoDisciplina() {
 		return codigoDisciplina;
 	}
-	public void setCodigoDisciplina(String codigoDisciplina) {
+	public void setCodigoDisciplina(int codigoDisciplina) {
 		this.codigoDisciplina = codigoDisciplina;
 	}
 	public String getNomeDisciplina() {
@@ -23,11 +23,11 @@ public class Disciplina {
 	public void setNomeDisciplina(String nomeDisciplina) {
 		this.nomeDisciplina = nomeDisciplina;
 	}
-	public int getDiaDaSemana() {
+	public String getDiaDaSemana() {
 		return diaDaSemana;
 	}
-	public void setDiaDaSemana(int diaDaSemana) {
-		this.diaDaSemana = diaDaSemana;
+	public void setDiaDaSemana(String dados) {
+		this.diaDaSemana = dados;
 	}
 	public LocalTime getHorarioinicial() {
 		return horarioinicial;
@@ -56,6 +56,6 @@ public class Disciplina {
 	
 	@Override
 	public String toString() {
-		return getCodigoDisciplina() + "," + getNomeDisciplina() + "," + getDiaDaSemana() + "," + getHorarioinicial() + "," + getQtdHorasDiarias() + "," + getCodigoProcesso() + "," + getCodigoCurso() + "\n";
+		return getCodigoDisciplina() + ";" + getNomeDisciplina() + ";" + getDiaDaSemana() + ";" + getHorarioinicial() + ";" + getQtdHorasDiarias() + ";" + getCodigoProcesso() + ";" + getCodigoCurso();
 	}
 }

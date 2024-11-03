@@ -5,15 +5,17 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 import br.com.fatec.Lista;
 import model.Disciplina;
 
 public class DisciplinaDAO {
-	public void buscar(String codigo) {
+	public void buscarDisciplina(int codigo) {
 		boolean encontrado = false;
-		Lista<Disciplina> disciplinas = listar();
+		Lista<Disciplina> disciplinas = consultarDisciplinas();
 		int tamanho = disciplinas.size(), i = 0;
 		
 		while(i < tamanho) {
@@ -21,15 +23,17 @@ public class DisciplinaDAO {
 			try {
 				disciplina = disciplinas.get(i);
 				
-				String codigoDisciplina = disciplina.getCodigoDisciplina();
+				int codigoDisciplina = disciplina.getCodigoDisciplina();
 				
-				if(codigoDisciplina.equals(codigo)) {
-					System.out.println("Curso [Código da Disciplina: " + disciplina.getCodigoDisciplina() + ", \n Nome da Disciplina: " + disciplina.getNomeDisciplina() + ", \n Dia da semana que a disciplina será ministrada: " + disciplina.getDiaDaSemana() + ", \n Horário inicial que a disciplina será ministrada: " + disciplina.getHorarioinicial() + ", \n Quantidade de horas diárias: " + disciplina.getQtdHorasDiarias() + ", \n Código do Processo: " + disciplina.getCodigoProcesso() + ", \n Código do Curso: " + disciplina.getCodigoCurso() + "]");
+				if(codigoDisciplina == codigo) {
+					System.out.println("Disciplina [Código da Disciplina: " + disciplina.getCodigoDisciplina() + ", \n Nome da Disciplina: " + disciplina.getNomeDisciplina() + ", \n Dia da semana que a disciplina será ministrada: " + disciplina.getDiaDaSemana() + ", \n Horário inicial que a disciplina será ministrada: " + disciplina.getHorarioinicial() + ", \n Quantidade de horas diárias: " + disciplina.getQtdHorasDiarias() + ", \n Código do Processo: " + disciplina.getCodigoProcesso() + ", \n Código do Curso: " + disciplina.getCodigoCurso() + "]");
 					encontrado = true;
 					break;
 				}
 			} catch (Exception e) {
-				e.printStackTrace();
+				System.err.println(e.getMessage());
+			} finally {
+				i++;
 			}
 		}
         if (!encontrado) {
@@ -37,38 +41,55 @@ public class DisciplinaDAO {
         }
 	}
 
-	public void salvar(Disciplina disciplina) {
-		String arquivo = "C:\\TEMP\\disciplinas.csv";
-		try (BufferedWriter gravar = new BufferedWriter(new FileWriter(arquivo))){
+	public void inserirDisciplina(Disciplina disciplina) {
+		String caminho = "C:\\TEMP";
+		File arquivo = new File(caminho, "disciplinas.csv");
+		File diretorio = new File(caminho);
+		
+		if(!diretorio.exists()) {
+			diretorio.mkdir();
+		}
+		
+		if(!arquivo.exists()) {
+			try {
+				arquivo.createNewFile();
+			}catch (IOException e) {
+				System.err.println(e.getMessage());
+			}
+		}
+		try (BufferedWriter gravar = new BufferedWriter(new FileWriter(arquivo, true))){
 			gravar.write(disciplina.toString());
+			gravar.newLine();
 		} catch (Exception e) {
-			e.printStackTrace();
+			System.err.println(e.getMessage());
 		}
 	}
 
-	public Lista<Disciplina> listar() {
+	public Lista<Disciplina> consultarDisciplinas() {
 		String arquivo = "C:\\TEMP\\disciplinas.csv";
+		Lista<Disciplina> disciplinas = new Lista<Disciplina>();
+		
 		try (BufferedReader ler = new BufferedReader(new FileReader(arquivo))){
 			String linha;
 			while((linha = ler.readLine()) != null) {
-				String[] dados = linha.split(",");
+				String[] dados = linha.split(";");
 				Disciplina disciplina = new Disciplina();
-				disciplina.setCodigoDisciplina(dados[0]); 
+				disciplina.setCodigoDisciplina(Integer.parseInt(dados[0])); 
 				disciplina.setNomeDisciplina(dados[1]);
-				disciplina.setDiaDaSemana(Integer.parseInt(dados[2]));
-				disciplina.setHorarioinicial(LocalTime.parse(dados[3]));
+				disciplina.setDiaDaSemana(dados[2]);
+				disciplina.setHorarioinicial(LocalTime.parse(dados[3], DateTimeFormatter.ofPattern("HH:mm")));
 				disciplina.setQtdHorasDiarias(Integer.parseInt(dados[4]));
 				disciplina.setCodigoProcesso(Integer.parseInt(dados[5]));
 				disciplina.setCodigoCurso(dados[6]);
-				
+				disciplinas.addLast(disciplina);
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			System.err.println(e.getMessage());
 		}
-		return null;
+		return disciplinas;
 	}
 
-	public void atualizar(Disciplina disciplina) {
+	public void atualizarDisciplina(Disciplina disciplina) {
 		String arquivo = "C:\\TEMP\\disciplinas.csv";
 		String atualizado = "C:\\TEMP\\disciplinas_temp.csv";
 		
@@ -76,25 +97,27 @@ public class DisciplinaDAO {
 			try (BufferedWriter gravar = new BufferedWriter(new FileWriter(atualizado))){
 				String linha;
 				while((linha = ler.readLine()) != null) {
-					String[] dados = linha.split(",");
-					if(dados[0].equals(disciplina.getCodigoDisciplina())) {
+					String[] dados = linha.split(";");
+					if(Integer.parseInt(dados[0]) == disciplina.getCodigoDisciplina()) {
 						gravar.write(disciplina.toString());
+						gravar.newLine();
 					}else {
 						gravar.write(linha);
+						gravar.newLine();
 					}
 				}
 			} catch (Exception e) {
-				e.printStackTrace();
+				System.err.println(e.getMessage());
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			System.err.println(e.getMessage());
 		}
 		
 		new File(arquivo).delete();
         new File(atualizado).renameTo(new File(arquivo));
 	}
 
-	public void remover(String codigo) {
+	public void removerDisciplina(int codigo) {
 		String arquivo = "C:\\TEMP\\disciplinas.csv";
 		String atualizado = "C:\\TEMP\\disciplinas_temp.csv";
 		
@@ -102,16 +125,17 @@ public class DisciplinaDAO {
 			try (BufferedWriter gravar = new BufferedWriter(new FileWriter(atualizado))){
 				String linha;
 				while((linha = ler.readLine()) != null) {
-					String[] dados = linha.split(",");
-					if(dados[0].equals(codigo)) {
+					String[] dados = linha.split(";");
+					if(Integer.parseInt(dados[0]) != codigo) {
 						gravar.write(linha);
+						gravar.newLine();
 					}
 				}
 			} catch (Exception e) {
-				e.printStackTrace();
+				System.err.println(e.getMessage());
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			System.err.println(e.getMessage());
 		}
 		
 		new File(arquivo).delete();

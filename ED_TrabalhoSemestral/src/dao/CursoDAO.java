@@ -5,14 +5,15 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.IOException;
 
 import br.com.fatec.Lista;
 import model.Curso;
 
 public class CursoDAO{
-	public void buscar(String codigo) {
+	public void buscarCurso(String codigo) {
 		boolean encontrado = false;
-		Lista<Curso> cursos = listar();
+		Lista<Curso> cursos = consultarCursos();
 		int tamanho = cursos.size(), i = 0;
 		
 		while(i < tamanho) {
@@ -28,7 +29,9 @@ public class CursoDAO{
 					break;
 				}
 			} catch (Exception e) {
-				e.printStackTrace();
+				System.err.println(e.getMessage());
+			} finally {
+				i++;
 			}
 		}
         if (!encontrado) {
@@ -36,17 +39,32 @@ public class CursoDAO{
         }
 	}
 
-	public void salvar(Curso curso) {
-		String arquivo = "C:\\TEMP\\cursos.csv";
-		try (BufferedWriter gravar = new BufferedWriter(new FileWriter(arquivo))){
+	public void inserirCurso(Curso curso) {
+		String caminho = "C:\\TEMP";
+		File arquivo = new File(caminho, "cursos.csv");
+		File diretorio = new File(caminho);
+		
+		if(!diretorio.exists()) {
+			diretorio.mkdir();
+		}
+		
+		if(!arquivo.exists()) {
+			try {
+				arquivo.createNewFile();
+			}catch (IOException e) {
+				System.err.println(e.getMessage());
+			}
+		}
+		try (BufferedWriter gravar = new BufferedWriter(new FileWriter(arquivo, true))){
 			gravar.write(curso.toString());
 		} catch (Exception e) {
-			e.printStackTrace();
+			System.err.println(e.getMessage());
 		}
 	}
 
-	public Lista<Curso> listar() {
+	public Lista<Curso> consultarCursos() {
 		String arquivo = "C:\\TEMP\\cursos.csv";
+		Lista<Curso> cursos = new Lista<Curso>();
 		
 		try (BufferedReader ler = new BufferedReader(new FileReader(arquivo))){
 			String linha;
@@ -56,15 +74,16 @@ public class CursoDAO{
 				curso.setCodigoCurso(dados[0]); 
 				curso.setNomeCurso(dados[1]);
 				curso.setAreaConhecimento(dados[2]);
+				cursos.addLast(curso);
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			System.err.println(e.getMessage());
 		}
 		
-		return null;
+		return cursos;
 	}
 
-	public void atualizar(Curso curso) {
+	public void atualizarCurso(Curso curso) {
 		String arquivo = "C:\\TEMP\\cursos.csv";
 		String atualizado = "C:\\TEMP\\cursos_temp.csv";
 		
@@ -75,22 +94,24 @@ public class CursoDAO{
 					String[] dados = linha.split(",");
 					if(dados[0].equals(curso.getCodigoCurso())) {
 						gravar.write(curso.toString());
+						gravar.newLine();
 					}else {
 						gravar.write(linha);
+						gravar.newLine();
 					}
 				}
 			} catch (Exception e) {
-				e.printStackTrace();
+				System.err.println(e.getMessage());
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			System.err.println(e.getMessage());
 		}
 		
 		new File(arquivo).delete();
         new File(atualizado).renameTo(new File(arquivo));
 	}
 
-	public void remover(String codigo) {
+	public void removerCurso(int codigo) {
 		String arquivo = "C:\\TEMP\\cursos.csv";
 		String atualizado = "C:\\TEMP\\cursos_temp.csv";
 		
@@ -99,15 +120,16 @@ public class CursoDAO{
 				String linha;
 				while((linha = ler.readLine()) != null) {
 					String[] dados = linha.split(",");
-					if(!dados[0].equals(codigo)) {
+					if(Integer.parseInt(dados[0]) != codigo) {
 						gravar.write(linha);
+						gravar.newLine();
 					}
 				}
 			} catch (Exception e) {
-				e.printStackTrace();
+				System.err.println(e.getMessage());
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			System.err.println(e.getMessage());
 		}
 		
 		new File(arquivo).delete();
