@@ -28,4 +28,9 @@ public class Inscricao {
 	public String toString() {
 		return getCpf() + ";" + getCodigoDisciplina() + ";" + getCodigoProcesso();
 	}
+	
+	@Override
+	public int hashCode() {
+		return codigoDisciplina;
+	}
 }
