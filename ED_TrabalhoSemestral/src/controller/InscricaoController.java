@@ -45,13 +45,29 @@ public class InscricaoController implements ActionListener {
 			}
 		}
 		if (cmd.equals("Listar Inscrições")) {
-			listarInscricao();
+			try {
+				listarInscricao();
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
 		}
 	}
 
-	private void listarInscricao() {
-		InscricaoDAO i = new InscricaoDAO();
-		i.consultarInscricao();
+	private void listarInscricao() throws Exception {
+		InscricaoDAO ins = new InscricaoDAO();
+		Lista<Inscricao> lista = ins.consultarInscricao();
+		int tamanho = lista.size();
+		StringBuffer buffer = new StringBuffer();
+		for (int i = 0; i < tamanho; i ++) {
+			Inscricao aux = lista.get(i);
+			String CPF = aux.getCpf();
+			int codigoDis = aux.getCodigoDisciplina();
+			int codigoProceso = aux.getCodigoProcesso();
+			buffer.append("CPF: " + CPF + ",\t" +
+						  "Código Disciplina: " + codigoDis + ",\t" +
+						  "Código Processo: " + codigoProceso + "\n");
+		}
+		taInscLista.setText(buffer.toString());
 		
 	}
 

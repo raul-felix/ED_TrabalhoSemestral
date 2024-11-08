@@ -58,16 +58,20 @@ public class ProfessorController implements ActionListener {
 		ProfessorDAO p = new ProfessorDAO();
 		Lista<Professor> lista = p.consultarProfessor();
 		int tamanho = lista.size();
+		StringBuffer buffer = new StringBuffer();
 		for (int i = 0; i < tamanho - 1; i ++) {
 			Professor aux = lista.get(i);
 			String CPF = aux.getCpf();
 			String Nome = aux.getNomeProfessor();
 			String AreaConhecimento = aux.getAreaConhecimento();
 			int QtdPontos = aux.getQtdPontos();
+			buffer.append("CPF: " + CPF + ",\t" +
+					  "Nome : " + Nome + ",\t" +
+					  "Area do Conhecimento : " + AreaConhecimento + 
+					  "Quantidade de Pontos : " + QtdPontos + "\n");
 
- 		  taProfLista.setText(CPF + Nome+AreaConhecimento+QtdPontos);
 		}
-		
+		taProfLista.setText(buffer.toString());
 	}
 
 	private void removerProfessor() {

@@ -63,7 +63,8 @@ public class DisciplinaController implements ActionListener {
 		DisciplinaDAO d = new DisciplinaDAO();
 		Lista<Disciplina> lista = d.consultarDisciplinas();
 		int tamanho = lista.size();
-		for (int i = 0; i < tamanho - 1; i ++) {
+		StringBuffer buffer = new StringBuffer();
+		for (int i = 0; i < tamanho ; i ++) {
 			Disciplina aux = lista.get(i);
 			String nomeDis = aux.getNomeDisciplina();
 			int codigoDis = aux.getCodigoDisciplina();
@@ -71,10 +72,15 @@ public class DisciplinaController implements ActionListener {
 			LocalTime horarioDis = aux.getHorarioinicial();
 			int cargaHorariaDis = aux.getQtdHorasDiarias();
 			int CodigoProcessoDis = aux.getCodigoProcesso();
-			int CodigoDisciplinaDIs = aux.getCodigoDisciplina();
-			
- 		  taDisLista.setText(nomeDis + codigoDis); // estou testando ... não esta certo ainda
+			String CodigoCurso = aux.getCodigoCurso();
+			buffer.append("Nome da Disciplina: " +  nomeDis+ ",\t" +
+					  "Código do Disciplina: " + codigoDis + ",\t" +
+					  "Data : " + dataDis+ "Horário: " + horarioDis + ",\t" + 
+					  "Carga Horária Diaria: " + cargaHorariaDis + ",\t" + 
+					  "Código do Procesos: " + CodigoProcessoDis + ",\t" + 
+					  "Código do Curso: " + CodigoCurso + ",\t" +"\n");
 		}
+		taDisLista.setText(buffer.toString()); 
 	}
 
 	private void removerDisciplina() {
