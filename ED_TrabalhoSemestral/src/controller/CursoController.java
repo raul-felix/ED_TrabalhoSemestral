@@ -52,13 +52,17 @@ public class CursoController implements ActionListener {
 		CursoDAO c = new CursoDAO();
 		Lista<Curso> lista = c.consultarCursos();
 		int tamanho = lista.size();
-		for (int i = 0; i < tamanho - 1; i ++) {
+		StringBuffer buffer = new StringBuffer();
+		for (int i = 0; i < tamanho; i ++) {
 			Curso aux = lista.get(i);
 			String nomeCurso = aux.getNomeCurso();
 			String codigoCurso = aux.getCodigoCurso();
 			String areaConhecimentoCurso = aux.getAreaConhecimento();
- 		  taCursosLista.setText(nomeCurso + codigoCurso + areaConhecimentoCurso);
+			buffer.append("Nome do curso: " + nomeCurso + ",\t" +
+						  "Código do curso: " + codigoCurso + ",\t" +
+						  "Área do conhecimento: " + areaConhecimentoCurso + "\n");
 		}
+		taCursosLista.setText(buffer.toString());
 	}
 
 	private void removerCurso() {
