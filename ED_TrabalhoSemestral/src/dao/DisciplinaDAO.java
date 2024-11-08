@@ -23,7 +23,7 @@ public class DisciplinaDAO {
 			try {
 				disciplina = disciplinas.get(i);
 				
-				int codigoDisciplina = disciplina.getCodigoDisciplina();
+				int codigoDisciplina = (int) disciplina.getCodigoDisciplina();
 				
 				if(codigoDisciplina == codigo) {
 					System.out.println("Disciplina [Código da Disciplina: " + disciplina.getCodigoDisciplina() + ", \n Nome da Disciplina: " + disciplina.getNomeDisciplina() + ", \n Dia da semana que a disciplina será ministrada: " + disciplina.getDiaDaSemana() + ", \n Horário inicial que a disciplina será ministrada: " + disciplina.getHorarioinicial() + ", \n Quantidade de horas diárias: " + disciplina.getQtdHorasDiarias() + ", \n Código do Processo: " + disciplina.getCodigoProcesso() + ", \n Código do Curso: " + disciplina.getCodigoCurso() + "]");

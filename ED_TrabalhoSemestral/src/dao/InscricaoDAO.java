@@ -69,7 +69,7 @@ public class InscricaoDAO {
 		try (BufferedReader ler = new BufferedReader(new FileReader(arquivo))){
 			String linha;
 			while((linha = ler.readLine()) != null) {
-				String[] dados = linha.split(",");
+				String[] dados = linha.split(";");
 				Inscricao inscricao = new Inscricao();
 				inscricao.setCpf(dados[0]); 
 				inscricao.setCodigoDisciplina(Integer.parseInt(dados[1]));
@@ -91,7 +91,7 @@ public class InscricaoDAO {
 			try (BufferedWriter gravar = new BufferedWriter(new FileWriter(atualizado))){
 				String linha;
 				while((linha = ler.readLine()) != null) {
-					String[] dados = linha.split(",");
+					String[] dados = linha.split(";");
 					if(Integer.parseInt(dados[2]) == inscricao.getCodigoProcesso()) {
 						gravar.write(inscricao.toString());
 						gravar.newLine();
@@ -119,7 +119,7 @@ public class InscricaoDAO {
 			try (BufferedWriter gravar = new BufferedWriter(new FileWriter(atualizado))){
 				String linha;
 				while((linha = ler.readLine()) != null) {
-					String[] dados = linha.split(",");
+					String[] dados = linha.split(";");
 					if(Integer.parseInt(dados[0]) != codigo) {
 						gravar.write(linha);
 						gravar.newLine();

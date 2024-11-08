@@ -69,7 +69,7 @@ public class CursoDAO{
 		try (BufferedReader ler = new BufferedReader(new FileReader(arquivo))){
 			String linha;
 			while((linha = ler.readLine()) != null) {
-				String[] dados = linha.split(",");
+				String[] dados = linha.split(";");
 				Curso curso = new Curso();
 				curso.setCodigoCurso(dados[0]); 
 				curso.setNomeCurso(dados[1]);
@@ -91,10 +91,9 @@ public class CursoDAO{
 			try (BufferedWriter gravar = new BufferedWriter(new FileWriter(atualizado))){
 				String linha;
 				while((linha = ler.readLine()) != null) {
-					String[] dados = linha.split(",");
+					String[] dados = linha.split(";");
 					if(dados[0].equals(curso.getCodigoCurso())) {
 						gravar.write(curso.toString());
-						gravar.newLine();
 					}else {
 						gravar.write(linha);
 						gravar.newLine();
@@ -119,7 +118,7 @@ public class CursoDAO{
 			try (BufferedWriter gravar = new BufferedWriter(new FileWriter(atualizado))){
 				String linha;
 				while((linha = ler.readLine()) != null) {
-					String[] dados = linha.split(",");
+					String[] dados = linha.split(";");
 					if(Integer.parseInt(dados[0]) != codigo) {
 						gravar.write(linha);
 						gravar.newLine();

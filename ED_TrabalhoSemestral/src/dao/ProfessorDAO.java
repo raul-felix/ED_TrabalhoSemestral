@@ -69,7 +69,7 @@ public class ProfessorDAO {
 		try (BufferedReader ler = new BufferedReader(new FileReader(arquivo))){
 			String linha;
 			while((linha = ler.readLine()) != null) {
-				String[] dados = linha.split(",");
+				String[] dados = linha.split(";");
 				Professor professor = new Professor();
 				professor.setCodigoProfessor(Integer.parseInt(dados[0])); 
 				professor.setCpf(dados[1]);
@@ -93,7 +93,7 @@ public class ProfessorDAO {
 			try (BufferedWriter gravar = new BufferedWriter(new FileWriter(atualizado))){
 				String linha;
 				while((linha = ler.readLine()) != null) {
-					String[] dados = linha.split(",");
+					String[] dados = linha.split(";");
 					if(Integer.parseInt(dados[0]) == professor.getCodigoProfessor()) {
 						gravar.write(professor.toString());
 						gravar.newLine();
@@ -121,7 +121,7 @@ public class ProfessorDAO {
 			try (BufferedWriter gravar = new BufferedWriter(new FileWriter(atualizado))){
 				String linha;
 				while((linha = ler.readLine()) != null) {
-					String[] dados = linha.split(",");
+					String[] dados = linha.split(";");
 					if(Integer.parseInt(dados[0]) != codigo) {
 						gravar.write(linha);
 						gravar.newLine();

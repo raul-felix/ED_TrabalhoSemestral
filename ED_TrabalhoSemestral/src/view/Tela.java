@@ -7,6 +7,9 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import controller.CursoController;
+import controller.DisciplinaController;
+import controller.InscricaoController;
+import controller.ProfessorController;
 
 import javax.swing.JTabbedPane;
 import java.awt.FlowLayout;
@@ -382,6 +385,29 @@ public class Tela extends JFrame {
 		btnCursosAtualizar.addActionListener(cCont);
 		btnCursosCadastrar.addActionListener(cCont);
 		btnCursosRemover.addActionListener(cCont);
+		btnCursosListar.addActionListener(cCont);
+		
+		DisciplinaController cDis = new DisciplinaController(tfDisCodigo, tfDisData, tfDisHorario, tfDisCargaHorariaDiaria, tfDisCodProcesso, tfDisCodCurso, tfDisDisciplina, taDisLista);
+		
+		btnDisAtualizar.addActionListener(cDis);
+		btnDisCadastrar.addActionListener(cDis);
+		btnDisRemover.addActionListener(cDis);
+		btnDisListar.addActionListener(cDis);
+		
+		InscricaoController cInscri = new InscricaoController(tfInscCPF, tfInscCodDic, tfInscCodProc, taInscLista);
+		
+		btnInscAtualizar.addActionListener(cInscri);
+		btnInscCadastrar.addActionListener(cInscri);
+		btnInscRemover.addActionListener(cInscri);
+		btnInscListarInsc.addActionListener(cInscri);
+		
+		ProfessorController cProf = new ProfessorController(tfProfCPF, tfProfNome, tfProfAreaCon, tfProfPont, taProfLista);
+		
+		btnProfAtualizar.addActionListener(cProf);
+		btnProfCadastrar.addActionListener(cProf);
+		btnProfRemover.addActionListener(cProf);
+		btnProfListar.addActionListener(cProf);
+		
 				
 	}
 }

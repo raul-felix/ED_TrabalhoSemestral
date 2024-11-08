@@ -26,6 +26,6 @@ public class Curso {
 	
 	@Override
 	public String toString() {
-		return getCodigoCurso() + ";" + getNomeCurso() + ";" + getAreaConhecimento();
+		return getCodigoCurso() + ";" + getNomeCurso() + ";" + getAreaConhecimento() + "\n" ;
 	}
 }
