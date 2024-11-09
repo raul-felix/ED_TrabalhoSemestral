@@ -11,32 +11,30 @@ import br.com.fatec.Lista;
 import model.Professor;
 
 public class ProfessorDAO {
-	public void buscarProfessor(int codigo) {
-		boolean encontrado = false;
-		Lista<Professor> professores = consultarProfessor();
-		int tamanho = professores.size(), i = 0;
+	public Professor buscarProfessor(int codigo) {
+		String arquivo = "C:\\TEMP\\professor.csv";
 		
-		while(i < tamanho) {
-			Professor professor;
-			try {
-				professor = professores.get(i);
+		try (BufferedReader ler = new BufferedReader(new FileReader(arquivo))){
+			String linha;
+			while((linha = ler.readLine()) != null) {
+				String[] dados = linha.split(";");
+				int codigoProfessor = Integer.parseInt(dados[0]);
 				
-				int codigoProfessor = professor.getCodigoProfessor();
-				
-				if(codigoProfessor == codigo) {
-					System.out.println("Professor [Código do Professor: " + professor.getCodigoProfessor() + ", \n CPF: " + professor.getCpf() + ", \n Nome do Professor: " + professor.getNomeProfessor() + ", \n Área de Conhecimento: " + professor.getAreaConhecimento() + ", \n Quantidade de Pontos: " + professor.getNomeProfessor() + "]");
-					encontrado = true;
-					break;
+				if (codigo == codigoProfessor) {
+					Professor professor = new Professor();
+					professor.setCodigoProfessor(codigoProfessor); 
+					professor.setCpf(dados[1]);
+					professor.setNomeProfessor(dados[2]);
+					professor.setAreaConhecimento(dados[3]);
+					professor.setQtdPontos(Integer.parseInt(dados[4]));
+					return professor;
 				}
-			} catch (Exception e) {
-				System.err.println(e.getMessage());
-			} finally {
-				i++;
 			}
+		} catch (Exception e) {
+			System.err.println(e.getMessage());
 		}
-        if (!encontrado) {
-            System.out.println("O professor de código '" + codigo + "' não foi encontrado! Por favor, verifique o código e digite novamente!");
-        }
+		
+		return null;
 	}
 
 	public void inserirProfessor(Professor professor) {
@@ -62,7 +60,7 @@ public class ProfessorDAO {
 		}
 	}
 
-	public Lista<Professor> consultarProfessor() {
+	public Lista<Professor> consultarProfessores() {
 		String arquivo = "C:\\TEMP\\professor.csv";
 		Lista<Professor> professores = new Lista<Professor>();
 		

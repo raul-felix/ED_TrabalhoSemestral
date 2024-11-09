@@ -11,32 +11,28 @@ import br.com.fatec.Lista;
 import model.Curso;
 
 public class CursoDAO{
-	public void buscarCurso(String codigo) {
-		boolean encontrado = false;
-		Lista<Curso> cursos = consultarCursos();
-		int tamanho = cursos.size(), i = 0;
+	public Curso buscarCurso(int codigo) {
+		String arquivo = "C:\\TEMP\\cursos.csv";
 		
-		while(i < tamanho) {
-			Curso curso;
-			try {
-				curso = cursos.get(i);
+		try (BufferedReader ler = new BufferedReader(new FileReader(arquivo))){
+			String linha;
+			while((linha = ler.readLine()) != null) {
+				String[] dados = linha.split(";");
+				int codigoCurso = Integer.parseInt(dados[0]);
 				
-				String codigoCurso = curso.getCodigoCurso();
-				
-				if(codigoCurso.equals(codigo)) {
-					System.out.println("Curso [Código do Curso: " + curso.getCodigoCurso() + ", \n Nome do Curso: " + curso.getNomeCurso() + ", \n Área de conhecimento necessária:" +curso.getAreaConhecimento() + "]");
-					encontrado = true;
-					break;
+				if (codigo == codigoCurso) {
+					Curso curso = new Curso();
+					curso.setCodigoCurso(codigoCurso); 
+					curso.setNomeCurso(dados[1]);
+					curso.setAreaConhecimento(dados[2]);
+					return curso;
 				}
-			} catch (Exception e) {
-				System.err.println(e.getMessage());
-			} finally {
-				i++;
 			}
+		} catch (Exception e) {
+			System.err.println(e.getMessage());
 		}
-        if (!encontrado) {
-            System.out.println("O curso de código '" + codigo + "' não foi encontrado! Por favor, verifique o código e digite novamente!");
-        }
+		
+		return null;
 	}
 
 	public void inserirCurso(Curso curso) {
@@ -71,7 +67,7 @@ public class CursoDAO{
 			while((linha = ler.readLine()) != null) {
 				String[] dados = linha.split(";");
 				Curso curso = new Curso();
-				curso.setCodigoCurso(dados[0]); 
+				curso.setCodigoCurso(Integer.parseInt(dados[0])); 
 				curso.setNomeCurso(dados[1]);
 				curso.setAreaConhecimento(dados[2]);
 				cursos.addLast(curso);

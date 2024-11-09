@@ -8,11 +8,7 @@ import javax.swing.JTextField;
 import javax.swing.text.Caret;
 
 import br.com.fatec.Lista;
-import dao.DisciplinaDAO;
-import dao.InscricaoDAO;
 import dao.ProfessorDAO;
-import model.Disciplina;
-import model.Inscricao;
 import model.Professor;
 
 public class ProfessorController implements ActionListener {
@@ -56,7 +52,7 @@ public class ProfessorController implements ActionListener {
 
 	private void listarProfessor() throws Exception {
 		ProfessorDAO p = new ProfessorDAO();
-		Lista<Professor> lista = p.consultarProfessor();
+		Lista<Professor> lista = p.consultarProfessores();
 		int tamanho = lista.size();
 		StringBuffer buffer = new StringBuffer();
 		for (int i = 0; i < tamanho - 1; i ++) {

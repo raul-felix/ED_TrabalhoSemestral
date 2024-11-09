@@ -9,9 +9,7 @@ import javax.swing.JTextField;
 import javax.swing.text.Caret;
 
 import br.com.fatec.Lista;
-import dao.CursoDAO;
 import dao.DisciplinaDAO;
-import model.Curso;
 import model.Disciplina;
 
 public class DisciplinaController implements ActionListener {
@@ -71,14 +69,14 @@ public class DisciplinaController implements ActionListener {
 			String dataDis = aux.getDiaDaSemana();
 			LocalTime horarioDis = aux.getHorarioinicial();
 			int cargaHorariaDis = aux.getQtdHorasDiarias();
-			int CodigoProcessoDis = aux.getCodigoProcesso();
-			String CodigoCurso = aux.getCodigoCurso();
+			int codigoProcessoDis = aux.getCodigoProcesso();
+			int codigoCurso = aux.getCodigoCurso();
 			buffer.append("Nome da Disciplina: " +  nomeDis+ ",\t" +
 					  "Código do Disciplina: " + codigoDis + ",\t" +
 					  "Data : " + dataDis+ "Horário: " + horarioDis + ",\t" + 
 					  "Carga Horária Diaria: " + cargaHorariaDis + ",\t" + 
-					  "Código do Procesos: " + CodigoProcessoDis + ",\t" + 
-					  "Código do Curso: " + CodigoCurso + ",\t" +"\n");
+					  "Código do Procesos: " + codigoProcessoDis + ",\t" + 
+					  "Código do Curso: " + codigoCurso + ",\t" +"\n");
 		}
 		taDisLista.setText(buffer.toString()); 
 	}
@@ -109,7 +107,7 @@ public class DisciplinaController implements ActionListener {
 //		disciplina.setHorarioinicial(Integer.parseInt(tfDisCargaHorariaDiaria.getText())); O que fazer com o local time?
 		disciplina.setQtdHorasDiarias(Integer.parseInt(tfDisCargaHorariaDiaria.getText())); // precisa mesmo ser int ?
 		disciplina.setCodigoProcesso(Integer.parseInt(tfDisCodProcesso.getText()));
-		disciplina.setCodigoCurso(tfDisCodCurso.getText());
+		disciplina.setCodigoCurso(Integer.parseInt(tfDisCodCurso.getText()));
 
 		
 		DisciplinaDAO d = new DisciplinaDAO();
@@ -139,7 +137,7 @@ public class DisciplinaController implements ActionListener {
 //		disciplina.setHorarioinicial(Integer.parseInt(tfDisCargaHorariaDiaria.getText())); O que fazer com o local time?
 		disciplina.setQtdHorasDiarias(Integer.parseInt(tfDisCargaHorariaDiaria.getText())); // precisa mesmo ser int ?
 		disciplina.setCodigoProcesso(Integer.parseInt(tfDisCodProcesso.getText()));
-		disciplina.setCodigoCurso(tfDisCodCurso.getText());
+		disciplina.setCodigoCurso(Integer.parseInt(tfDisCodCurso.getText()));
 
 		
 		DisciplinaDAO d = new DisciplinaDAO();

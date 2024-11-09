@@ -1,14 +1,14 @@
 package model;
 
 public class Curso {
-	private String codigoCurso;
+	private int codigoCurso;
 	private String nomeCurso;
 	private String areaConhecimento;
 	
-	public String getCodigoCurso() {
+	public int getCodigoCurso() {
 		return codigoCurso;
 	}
-	public void setCodigoCurso(String codigoCurso) {
+	public void setCodigoCurso(int codigoCurso) {
 		this.codigoCurso = codigoCurso;
 	}
 	public String getNomeCurso() {

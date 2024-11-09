@@ -55,7 +55,7 @@ public class CursoController implements ActionListener {
 		for (int i = 0; i < tamanho; i ++) {
 			Curso aux = lista.get(i);
 			String nomeCurso = aux.getNomeCurso();
-			String codigoCurso = aux.getCodigoCurso();
+			int codigoCurso = aux.getCodigoCurso();
 			String areaConhecimentoCurso = aux.getAreaConhecimento();
 			buffer.append("Nome do curso: " + nomeCurso + ",\t" +
 						  "Código do curso: " + codigoCurso + ",\t" +
@@ -66,7 +66,7 @@ public class CursoController implements ActionListener {
 
 	private void removerCurso() {
 		Curso curso = new Curso();
-		curso.setCodigoCurso(tfCursosCod.getText());
+		curso.setCodigoCurso(Integer.parseInt(tfCursosCod.getText()));
 		CursoDAO c = new CursoDAO();
 		if (tfCursosCod.getText().equals("")) {
 			taCursosLista.setText(" FALHA NA REMOÇÃO \n INSIRA O CODIGO DE ALGUM CURSO PARA REMOVER");
@@ -85,7 +85,7 @@ public class CursoController implements ActionListener {
 	private void atualizarCurso() {
 		Curso curso = new Curso();
 		curso.setNomeCurso(tfCursosNome.getText());
-		curso.setCodigoCurso(tfCursosCod.getText());
+		curso.setCodigoCurso(Integer.parseInt(tfCursosCod.getText()));
 		curso.setAreaConhecimento(tfCursosAreaConhec.getText());
 		CursoDAO c = new CursoDAO();
 		if (tfCursosNome.getText().equals("") || tfCursosCod.getText().equals("")
@@ -107,7 +107,7 @@ public class CursoController implements ActionListener {
 	private void cadastraCurso() {
 		Curso curso = new Curso();
 		curso.setNomeCurso(tfCursosNome.getText());
-		curso.setCodigoCurso(tfCursosCod.getText());
+		curso.setCodigoCurso(Integer.parseInt(tfCursosCod.getText()));
 		curso.setAreaConhecimento(tfCursosAreaConhec.getText());
 		CursoDAO c = new CursoDAO();
 		if (tfCursosNome.getText().equals("") || tfCursosCod.getText().equals("")

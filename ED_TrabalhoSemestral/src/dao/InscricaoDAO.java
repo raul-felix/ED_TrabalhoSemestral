@@ -11,32 +11,29 @@ import br.com.fatec.Lista;
 import model.Inscricao;
 
 public class InscricaoDAO {
-	public void buscarInscricao(int codigo) {
-		boolean encontrado = false;
-		Lista<Inscricao> inscricoes = consultarInscricao();
-		int tamanho = inscricoes.size(), i = 0;
+	public Inscricao buscarInscricao(String cpf, int codigoDisciplina) {
+		String arquivo = "C:\\TEMP\\inscricoes.csv";
 		
-		while(i < tamanho) {
-			Inscricao inscricao;
-			try {
-				inscricao = inscricoes.get(i);
+		try (BufferedReader ler = new BufferedReader(new FileReader(arquivo))){
+			String linha;
+			while((linha = ler.readLine()) != null) {
+				String[] dados = linha.split(";");
+				String cpfProfessorInscr = dados[0];
+				int codigoDisciplinaInscr = Integer.parseInt(dados[1]);
 				
-				int codigoInscricao = inscricao.getCodigoProcesso();
-				
-				if(codigoInscricao == codigo) {
-					System.out.println("Inscricao [CPF do professor: " + inscricao.getCpf() + ", \n Código da Disciplina: " + inscricao.getCodigoDisciplina() + ", \n Código do Processo: " + inscricao.getCodigoProcesso() + "]");
-					encontrado = true;
-					break;
+				if (cpf.equals(cpfProfessorInscr) && codigoDisciplina == codigoDisciplinaInscr) {
+					Inscricao inscricao = new Inscricao();
+					inscricao.setCpf(cpfProfessorInscr); 
+					inscricao.setCodigoDisciplina(codigoDisciplinaInscr);
+					inscricao.setCodigoProcesso(Integer.parseInt(dados[2]));
+					return inscricao;
 				}
-			} catch (Exception e) {
-				System.err.println(e.getMessage());
-			} finally {
-				i++;
 			}
+		} catch (Exception e) {
+			System.err.println(e.getMessage());
 		}
-        if (!encontrado) {
-        	System.out.println("A inscrição de código '" + codigo + "' não foi encontrada! Por favor, verifique o código e digite novamente!");
-        }
+		
+		return null;
 	}
 
 	public void inserirInscricao(Inscricao inscricao) {
@@ -62,7 +59,7 @@ public class InscricaoDAO {
 		}
 	}
 
-	public Lista<Inscricao> consultarInscricao() {
+	public Lista<Inscricao> consultarInscricoes() {
 		String arquivo = "C:\\TEMP\\inscricoes.csv";
 		Lista<Inscricao> inscricoes = new Lista<Inscricao>();
 		

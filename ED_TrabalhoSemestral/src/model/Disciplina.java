@@ -9,7 +9,7 @@ public class Disciplina {
 	private LocalTime horarioinicial;
 	private int qtdHorasDiarias;
 	private int codigoProcesso;
-	private String codigoCurso;
+	private int codigoCurso;
 	
 	public int getCodigoDisciplina() {
 		return codigoDisciplina;
@@ -47,10 +47,10 @@ public class Disciplina {
 	public void setCodigoProcesso(int codigoProcesso) {
 		this.codigoProcesso = codigoProcesso;
 	}
-	public String getCodigoCurso() {
+	public int getCodigoCurso() {
 		return codigoCurso;
 	}
-	public void setCodigoCurso(String codigoCurso) {
+	public void setCodigoCurso(int codigoCurso) {
 		this.codigoCurso = codigoCurso;
 	}
 	

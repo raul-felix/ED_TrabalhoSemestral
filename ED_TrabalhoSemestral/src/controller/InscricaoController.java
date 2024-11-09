@@ -8,9 +8,7 @@ import javax.swing.JTextField;
 import javax.swing.text.Caret;
 
 import br.com.fatec.Lista;
-import dao.CursoDAO;
 import dao.InscricaoDAO;
-import model.Curso;
 import model.Inscricao;
 
 public class InscricaoController implements ActionListener {
@@ -55,7 +53,7 @@ public class InscricaoController implements ActionListener {
 
 	private void listarInscricao() throws Exception {
 		InscricaoDAO ins = new InscricaoDAO();
-		Lista<Inscricao> lista = ins.consultarInscricao();
+		Lista<Inscricao> lista = ins.consultarInscricoes();
 		int tamanho = lista.size();
 		StringBuffer buffer = new StringBuffer();
 		for (int i = 0; i < tamanho; i ++) {
@@ -73,7 +71,7 @@ public class InscricaoController implements ActionListener {
 
 	private void removerInscricao() throws Exception {
 		InscricaoDAO ins = new InscricaoDAO();
-		Lista<Inscricao> lista = ins.consultarInscricao();
+		Lista<Inscricao> lista = ins.consultarInscricoes();
 		int tamanho = lista.size();
 		for (int i = 0; i < tamanho - 1; i ++) {
 			Inscricao aux = lista.get(i);
