@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalTime;
 
+import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.text.Caret;
@@ -84,10 +85,10 @@ public class DisciplinaController implements ActionListener {
 	private void removerDisciplina() {
 		DisciplinaDAO d = new DisciplinaDAO();
 		Disciplina disciplina = new Disciplina();
-		disciplina.setCodigoDisciplina(Integer.parseInt(tfDisCodigo.getText()));
+//		disciplina.setCodigoDisciplina(Integer.parseInt(tfDisCodigo.getText()));
 		
 		if (tfDisCodigo.getText().equals("")) {
-			taDisLista.setText(" FALHA NA REMOÇÃO \n INSIRA O CODIGO DE ALGUM CURSO PARA REMOVER");
+			JOptionPane.showMessageDialog(null, "FALHA NA REMOÇÃO \n INSIRA O CODIGO DE ALGUM CURSO PARA REMOVER");
 		} else {
 			int codigo = Integer.parseInt(tfDisCodigo.getText()) ;
 			try {
@@ -101,22 +102,20 @@ public class DisciplinaController implements ActionListener {
 	
 	private void atualizarDisciplina() {
 		Disciplina disciplina = new Disciplina();
-		disciplina.setNomeDisciplina(tfDisDisciplina.getText());
-		disciplina.setCodigoDisciplina(Integer.parseInt(tfDisCodigo.getText()));
-		disciplina.setDiaDaSemana(tfDisData.getText());
-//		disciplina.setHorarioinicial(Integer.parseInt(tfDisCargaHorariaDiaria.getText())); O que fazer com o local time?
-		disciplina.setQtdHorasDiarias(Integer.parseInt(tfDisCargaHorariaDiaria.getText())); // precisa mesmo ser int ?
-		disciplina.setCodigoProcesso(Integer.parseInt(tfDisCodProcesso.getText()));
-		disciplina.setCodigoCurso(Integer.parseInt(tfDisCodCurso.getText()));
-
-		
 		DisciplinaDAO d = new DisciplinaDAO();
 		if (tfDisDisciplina.getText().equals("") ||tfDisCodigo.getText().equals("") ||tfDisData.getText().equals("") ||
 				tfDisHorario.getText().equals("") ||tfDisCargaHorariaDiaria.getText().equals("") 
 				||tfDisCodProcesso.getText().equals("") || tfDisCodCurso.getText().equals("")) {
-			taDisLista.setText(" FALHA NA ATUALIZAÇÃO \n PREENCHA TODOS OS CAMPOS PARA REALIZAR A ATUALIZAÇÃO");
+			JOptionPane.showMessageDialog(null," FALHA NA ATUALIZAÇÃO \n PREENCHA TODOS OS CAMPOS PARA REALIZAR A ATUALIZAÇÃO");
 		} else {
 			try {
+				disciplina.setNomeDisciplina(tfDisDisciplina.getText());
+				disciplina.setCodigoDisciplina(Integer.parseInt(tfDisCodigo.getText()));
+				disciplina.setDiaDaSemana(tfDisData.getText());
+//				disciplina.setHorarioinicial(Integer.parseInt(tfDisCargaHorariaDiaria.getText())); O que fazer com o local time?
+				disciplina.setQtdHorasDiarias(Integer.parseInt(tfDisCargaHorariaDiaria.getText())); 
+				disciplina.setCodigoProcesso(Integer.parseInt(tfDisCodProcesso.getText()));
+				disciplina.setCodigoCurso(Integer.parseInt(tfDisCodCurso.getText()));
 				d.atualizarDisciplina(disciplina);
 				taDisLista.setText(" CURSO ATUALIZADO COM SUCESSO \n INFORMAÇÕES CADASTRADAS : " + "\n NOME : "
 						+ disciplina.getNomeDisciplina() + "\n CODIGO DA DISCIPLINA: " + disciplina.getCodigoDisciplina() +
@@ -131,22 +130,20 @@ public class DisciplinaController implements ActionListener {
 	
 	private void cadastraDisciplina() {
 		Disciplina disciplina = new Disciplina();
-		disciplina.setNomeDisciplina(tfDisDisciplina.getText());
-		disciplina.setCodigoDisciplina(Integer.parseInt(tfDisCodigo.getText()));
-		disciplina.setDiaDaSemana(tfDisData.getText());
-//		disciplina.setHorarioinicial(Integer.parseInt(tfDisCargaHorariaDiaria.getText())); O que fazer com o local time?
-		disciplina.setQtdHorasDiarias(Integer.parseInt(tfDisCargaHorariaDiaria.getText())); // precisa mesmo ser int ?
-		disciplina.setCodigoProcesso(Integer.parseInt(tfDisCodProcesso.getText()));
-		disciplina.setCodigoCurso(Integer.parseInt(tfDisCodCurso.getText()));
-
-		
 		DisciplinaDAO d = new DisciplinaDAO();
 		if (tfDisDisciplina.getText().equals("") ||tfDisCodigo.getText().equals("") ||tfDisData.getText().equals("") ||
 				tfDisHorario.getText().equals("") ||tfDisCargaHorariaDiaria.getText().equals("") 
 				||tfDisCodProcesso.getText().equals("") || tfDisCodCurso.getText().equals("")) {
-			taDisLista.setText(" FALHA NO CADASTRO \n PREENCHA TODOS OS CAMPOS PARA REALIZAR O CADASTRO");
+			JOptionPane.showMessageDialog(null," FALHA NO CADASTRO \n PREENCHA TODOS OS CAMPOS PARA REALIZAR O CADASTRO");
 		} else {
 			try {
+				disciplina.setNomeDisciplina(tfDisDisciplina.getText());
+				disciplina.setCodigoDisciplina(Integer.parseInt(tfDisCodigo.getText()));
+				disciplina.setDiaDaSemana(tfDisData.getText());
+//				disciplina.setHorarioinicial(Integer.parseInt(tfDisCargaHorariaDiaria.getText())); O que fazer com o local time?
+				disciplina.setQtdHorasDiarias(Integer.parseInt(tfDisCargaHorariaDiaria.getText())); // precisa mesmo ser int ?
+				disciplina.setCodigoProcesso(Integer.parseInt(tfDisCodProcesso.getText()));
+				disciplina.setCodigoCurso(Integer.parseInt(tfDisCodCurso.getText()));
 				d.inserirDisciplina(disciplina);
 				taDisLista.setText(" CURSO CADASTRADO COM SUCESSO \n INFORMAÇÕES CADASTRADAS : " + "\n NOME : "
 						+ disciplina.getNomeDisciplina() + "\n CODIGO DA DISCIPLINA: " + disciplina.getCodigoDisciplina() +

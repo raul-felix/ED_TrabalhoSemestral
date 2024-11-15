@@ -3,12 +3,15 @@ package controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.text.Caret;
 
 import br.com.fatec.Lista;
+import dao.DisciplinaDAO;
 import dao.InscricaoDAO;
+import model.Disciplina;
 import model.Inscricao;
 
 public class InscricaoController implements ActionListener {
@@ -71,28 +74,33 @@ public class InscricaoController implements ActionListener {
 
 	private void removerInscricao() throws Exception {
 		InscricaoDAO ins = new InscricaoDAO();
-		Lista<Inscricao> lista = ins.consultarInscricoes();
-		int tamanho = lista.size();
-		for (int i = 0; i < tamanho - 1; i ++) {
-			Inscricao aux = lista.get(i);
-			String CPF = aux.getCpf();
-			int codigoDisciplina = aux.getCodigoDisciplina();
-			int codigoProcesso = aux.getCodigoProcesso();
- 		  taInscLista.setText(CPF + codigoDisciplina + codigoProcesso);
+		 Inscricao inscricao = new Inscricao();
+//		inscricao.setCodigoDisciplina(Integer.parseInt(tfInscCodDic.getText()));
+		
+		if (tfInscCodDic.getText().equals("")) {
+			JOptionPane.showMessageDialog(null, "FALHA NA REMOÇÃO \n INSIRA O CODIGO DE ALGUM CURSO PARA REMOVER");
+		} else {
+			int codigo = Integer.parseInt(tfInscCodDic.getText()) ;
+			try {
+				ins.removerInscricao(codigo);
+				taInscLista.setText(" CURSO " + inscricao.getCodigoDisciplina() + " REMOVIDO COM SUCESSO");
+			} catch (Exception e) {
+				taInscLista.setCaret((Caret) e);
+			}
 		}
 		
 	}
 
 	private void atualizarInscricao() {
 		Inscricao inscricao = new Inscricao();
-		inscricao.setCpf(tfInscCPF.getText());
-		inscricao.setCodigoDisciplina(Integer.parseInt(tfInscCodDic.getText()));
-		inscricao.setCodigoProcesso(Integer.parseInt(tfInscCodProc.getText()));
 		InscricaoDAO i = new InscricaoDAO();
 		if ( tfInscCodDic.getText().equals("")|| tfInscCodProc.getText().equals("") || tfInscCPF.getText().equals("")) {
-			taInscLista.setText(" FALHA NO CADASTRO \n PREENCHA TODOS OS CAMPOS PARA REALIZAR O CADASTRO");
+			JOptionPane.showMessageDialog(null," FALHA NA ATUALIZAÇÃO \n PREENCHA TODOS OS CAMPOS PARA REALIZAR O CADASTRO");
 		}else {
 			try {
+				inscricao.setCpf(tfInscCPF.getText());
+				inscricao.setCodigoDisciplina(Integer.parseInt(tfInscCodDic.getText()));
+				inscricao.setCodigoProcesso(Integer.parseInt(tfInscCodProc.getText()));
 				i.atualizarInscricao(inscricao);
 				taInscLista.setText(" INSCRIÇÃO ATUALIZADA COM SUCESSO \n INFORMAÇÕES ATUALIZADAS : " + "\n CPF : "
 						+ inscricao.getCpf() + "\n CODIGO DA DISCIPLINA: " + inscricao.getCodigoDisciplina() +
@@ -106,14 +114,15 @@ public class InscricaoController implements ActionListener {
 	
 	private void cadastraInscricao() {
 		Inscricao inscricao = new Inscricao();
-		inscricao.setCpf(tfInscCPF.getText());
-		inscricao.setCodigoDisciplina(Integer.parseInt(tfInscCodDic.getText()));
-		inscricao.setCodigoProcesso(Integer.parseInt(tfInscCodProc.getText()));
+
 		InscricaoDAO i = new InscricaoDAO();
 		if ( tfInscCodDic.getText().equals("")|| tfInscCodProc.getText().equals("") || tfInscCPF.getText().equals("")) {
-			taInscLista.setText(" FALHA NO CADASTRO \n PREENCHA TODOS OS CAMPOS PARA REALIZAR O CADASTRO");
+			JOptionPane.showMessageDialog(null," FALHA NO CADASTRO \n PREENCHA TODOS OS CAMPOS PARA REALIZAR O CADASTRO");
 		}else {
 			try {
+				inscricao.setCpf(tfInscCPF.getText());
+				inscricao.setCodigoDisciplina(Integer.parseInt(tfInscCodDic.getText()));
+				inscricao.setCodigoProcesso(Integer.parseInt(tfInscCodProc.getText()));
 				i.inserirInscricao(inscricao);
 				taInscLista.setText(" INSCRIÇÃO CADASTRADO COM SUCESSO \n INFORMAÇÕES CADASTRADAS : " + "\n CPF : "
 						+ inscricao.getCpf() + "\n CODIGO DA DISCIPLINA: " + inscricao.getCodigoDisciplina() +

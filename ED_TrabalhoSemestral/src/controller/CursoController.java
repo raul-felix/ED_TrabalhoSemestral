@@ -10,6 +10,7 @@ import javax.swing.text.Caret;
 import br.com.fatec.Lista;
 import dao.CursoDAO;
 import model.Curso;
+import javax.swing.JOptionPane;
 
 public class CursoController implements ActionListener {
 
@@ -66,10 +67,11 @@ public class CursoController implements ActionListener {
 
 	private void removerCurso() {
 		Curso curso = new Curso();
-		curso.setCodigoCurso(Integer.parseInt(tfCursosCod.getText()));
+//		curso.setCodigoCurso(Integer.parseInt(tfCursosCod.getText()));
 		CursoDAO c = new CursoDAO();
 		if (tfCursosCod.getText().equals("")) {
-			taCursosLista.setText(" FALHA NA REMOÇÃO \n INSIRA O CODIGO DE ALGUM CURSO PARA REMOVER");
+			JOptionPane.showMessageDialog(null, "FALHA NA REMOÇÃO \n INSIRA O CODIGO DE ALGUM CURSO PARA REMOVER");
+			
 		} else {
 			int codigo = Integer.parseInt(tfCursosCod.getText());
 			try {
@@ -84,15 +86,15 @@ public class CursoController implements ActionListener {
 
 	private void atualizarCurso() {
 		Curso curso = new Curso();
-		curso.setNomeCurso(tfCursosNome.getText());
-		curso.setCodigoCurso(Integer.parseInt(tfCursosCod.getText()));
-		curso.setAreaConhecimento(tfCursosAreaConhec.getText());
 		CursoDAO c = new CursoDAO();
 		if (tfCursosNome.getText().equals("") || tfCursosCod.getText().equals("")
 				|| tfCursosAreaConhec.getText().equals("")) {
-			taCursosLista.setText(" FALHA NA ATUALIZAÇÃO \n PREENCHA TODOS OS CAMPOS PARA REALIZAR A ATUALIZAÇÃO");
+			JOptionPane.showMessageDialog(null," FALHA NA ATUALIZAÇÃO \n PREENCHA TODOS OS CAMPOS PARA REALIZAR A ATUALIZAÇÃO");
 		} else {
 			try {
+				curso.setNomeCurso(tfCursosNome.getText());
+				curso.setCodigoCurso(Integer.parseInt(tfCursosCod.getText()));
+				curso.setAreaConhecimento(tfCursosAreaConhec.getText());
 				c.atualizarCurso(curso);
 				taCursosLista.setText(" CURSO ATUALIZADO COM SUCESSO \n INFORMAÇÕES CADASTRADAS : " + "\n CODIGO : "
 						+ curso.getCodigoCurso() + "\n NOME: " + curso.getNomeCurso() + "\n AREA DO CONHECIMENTO: "
@@ -106,14 +108,14 @@ public class CursoController implements ActionListener {
 
 	private void cadastraCurso() {
 		Curso curso = new Curso();
-		curso.setNomeCurso(tfCursosNome.getText());
-		curso.setCodigoCurso(Integer.parseInt(tfCursosCod.getText()));
-		curso.setAreaConhecimento(tfCursosAreaConhec.getText());
 		CursoDAO c = new CursoDAO();
 		if (tfCursosNome.getText().equals("") || tfCursosCod.getText().equals("")
 				|| tfCursosAreaConhec.getText().equals("")) {
-			taCursosLista.setText(" FALHA NO CADASTRO \n PREENCHA TODOS OS CAMPOS PARA REALIZAR O CADASTRO");
+			JOptionPane.showMessageDialog(null, "FALHA NO CADASTRO \n INSIRA O CODIGO DE ALGUM CURSO PARA REMOVER");
 		} else {
+			curso.setNomeCurso(tfCursosNome.getText());
+			curso.setCodigoCurso(Integer.parseInt(tfCursosCod.getText()));
+			curso.setAreaConhecimento(tfCursosAreaConhec.getText());
 			c.inserirCurso(curso);
 			taCursosLista.setText(" CADASTRO REALIZADO \n INFORMAÇÕES CADASTRADAS : " + "\n CODIGO : "
 					+ curso.getCodigoCurso() + "\n NOME: " + curso.getNomeCurso() + "\n AREA DO CONHECIMENTO: "
