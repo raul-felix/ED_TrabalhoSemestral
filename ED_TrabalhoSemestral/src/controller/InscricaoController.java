@@ -9,9 +9,7 @@ import javax.swing.JTextField;
 import javax.swing.text.Caret;
 
 import br.com.fatec.Lista;
-import dao.DisciplinaDAO;
 import dao.InscricaoDAO;
-import model.Disciplina;
 import model.Inscricao;
 
 public class InscricaoController implements ActionListener {
@@ -123,10 +121,15 @@ public class InscricaoController implements ActionListener {
 				inscricao.setCpf(tfInscCPF.getText());
 				inscricao.setCodigoDisciplina(Integer.parseInt(tfInscCodDic.getText()));
 				inscricao.setCodigoProcesso(Integer.parseInt(tfInscCodProc.getText()));
-				i.inserirInscricao(inscricao);
-				taInscLista.setText(" INSCRIÇÃO CADASTRADO COM SUCESSO \n INFORMAÇÕES CADASTRADAS : " + "\n CPF : "
-						+ inscricao.getCpf() + "\n CODIGO DA DISCIPLINA: " + inscricao.getCodigoDisciplina() +
-						"\n CODIGO DO PROCESSO : " +inscricao.getCodigoProcesso() ); 
+				if (i.inscricaoJaExiste(tfInscCPF.getText())) {
+				    JOptionPane.showMessageDialog(null, "Inscrição já realizada com o CPF: " + inscricao.getCpf());
+				    return;
+				} else {
+					i.inserirInscricao(inscricao);
+					taInscLista.setText(" INSCRIÇÃO CADASTRADO COM SUCESSO \n INFORMAÇÕES CADASTRADAS : " + "\n CPF : "
+							+ inscricao.getCpf() + "\n CODIGO DA DISCIPLINA: " + inscricao.getCodigoDisciplina() +
+							"\n CODIGO DO PROCESSO : " +inscricao.getCodigoProcesso() ); 
+				}	
 			} catch (Exception e) {
 				taInscLista.setCaret((Caret) e);
 			}

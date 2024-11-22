@@ -40,6 +40,11 @@ public class CursoDAO{
 		File arquivo = new File(caminho, "cursos.csv");
 		File diretorio = new File(caminho);
 		
+		if (cursoJaExiste(curso.getCodigoCurso())) {
+	        System.err.println("Curso já cadastrado com o código: " + curso.getCodigoCurso());
+	        return; // Não grava
+	    }
+				
 		if(!diretorio.exists()) {
 			diretorio.mkdir();
 		}
@@ -57,6 +62,31 @@ public class CursoDAO{
 			System.err.println(e.getMessage());
 		}
 	}
+	
+	public boolean cursoJaExiste(int codigoCurso) { // Método para verficiar se o curso já existe de forma a evitar duplicados
+	    String caminho = "C:\\TEMP\\cursos.csv";
+	    File arquivo = new File(caminho);
+	    
+	    if (!arquivo.exists()) { //Se o arquivo não existe, logo o curso não existe
+	        return false;
+	    }
+	    
+	    try (BufferedReader leitor = new BufferedReader(new FileReader(arquivo))) {
+	        String linha;
+	        while ((linha = leitor.readLine()) != null) {
+	            String[] dados = linha.split(";");
+	            if (dados.length > 0 && Integer.parseInt(dados[0]) == codigoCurso) {
+	                return true;
+	            }
+	        }
+	    } catch (IOException | NumberFormatException e) {
+	        System.err.println(e.getMessage());
+	    }
+	    
+	    return false;
+	}
+	
+	
 
 	public Lista<Curso> consultarCursos() {
 		String arquivo = "C:\\TEMP\\cursos.csv";

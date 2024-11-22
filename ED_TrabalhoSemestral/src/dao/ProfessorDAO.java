@@ -42,6 +42,11 @@ public class ProfessorDAO {
 		File arquivo = new File(caminho, "professor.csv");
 		File diretorio = new File(caminho);
 		
+		if (professorJaExiste(professor.getCpf())) {
+	        System.err.println("Professor já cadastrado com o CPF: " + professor.getCpf());
+	        return; // Não grava
+	    }
+		
 		if(!diretorio.exists()) {
 			diretorio.mkdir();
 		}
@@ -55,9 +60,36 @@ public class ProfessorDAO {
 		}
 		try (BufferedWriter gravar = new BufferedWriter(new FileWriter(arquivo, true))){
 			gravar.write(professor.toString());
+			gravar.newLine();
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 		}
+
+	}	
+	public boolean professorJaExiste(String cpf) {
+	    String caminho = "C:\\TEMP";
+	    File arquivo = new File(caminho, "professor.csv");
+
+	    if (!arquivo.exists()) {
+	        return false;
+	    }
+
+	    try (BufferedReader leitor = new BufferedReader(new FileReader(arquivo))) {
+	        String linha;
+
+	        leitor.readLine();
+
+	        while ((linha = leitor.readLine()) != null) {
+	            String[] dados = linha.split(";");
+	            if (dados.length > 1 && dados[1].equals(cpf)) {
+	                return true;
+	            }
+	        }
+	    } catch (IOException e) {
+	        System.err.println(e.getMessage());
+	    }
+
+	    return false;
 	}
 
 	public Lista<Professor> consultarProfessores() {

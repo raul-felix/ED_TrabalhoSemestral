@@ -12,19 +12,13 @@ import controller.InscricaoController;
 import controller.ProfessorController;
 
 import javax.swing.JTabbedPane;
-import java.awt.FlowLayout;
-import javax.swing.Icon;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 import java.awt.Font;
-import javax.swing.UIManager;
 import java.awt.Color;
-import javax.swing.JMenu;
-import javax.swing.JSeparator;
 import javax.swing.JButton;
 import javax.swing.JTextArea;
-import javax.swing.JComboBox;
 import javax.swing.JScrollPane;
 
 public class Tela extends JFrame {

@@ -49,19 +49,50 @@ public class DisciplinaDAO {
 			diretorio.mkdir();
 		}
 		
-		if(!arquivo.exists()) {
-			try {
-				arquivo.createNewFile();
-			}catch (IOException e) {
-				System.err.println(e.getMessage());
-			}
-		}
+		if (!arquivo.exists()) {
+	        try {
+	            arquivo.createNewFile();
+	            
+	        } catch (IOException e) {
+	            System.err.println("Erro ao criar o arquivo: " + e.getMessage());
+	            return;
+	        }
+	    }
+
+	    if (disciplinaJaExiste(disciplina.getCodigoDisciplina())) {
+	        System.err.println("Disciplina com código " + disciplina.getCodigoDisciplina() + " já cadastrada!");
+	        return;
+	    }
 		try (BufferedWriter gravar = new BufferedWriter(new FileWriter(arquivo, true))){
 			gravar.write(disciplina.toString());
 			gravar.newLine();
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 		}
+	}
+	
+	public boolean disciplinaJaExiste(int codigoDisciplina) {
+		String caminho = "C:\\TEMP";
+		File arquivo = new File(caminho, "disciplinas.csv");
+		
+		
+		if (!arquivo.exists()) {
+	        return false;
+	    }
+		
+		try (BufferedReader leitor = new BufferedReader(new FileReader(arquivo))) {
+	        String linha;
+	        while ((linha = leitor.readLine()) != null) {
+	            String[] dados = linha.split(";");
+	            if (dados.length > 0 && Integer.parseInt(dados[0]) == codigoDisciplina) {
+	                return true;
+	            }
+	        }
+	    } catch (IOException | NumberFormatException e) {
+	        System.err.println(e.getMessage());
+	    }
+	    
+	    return false;
 	}
 
 	public Lista<Disciplina> consultarDisciplinas() {

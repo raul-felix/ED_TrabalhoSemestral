@@ -107,20 +107,35 @@ public class CursoController implements ActionListener {
 	}
 
 	private void cadastraCurso() {
-		Curso curso = new Curso();
-		CursoDAO c = new CursoDAO();
-		if (tfCursosNome.getText().equals("") || tfCursosCod.getText().equals("")
-				|| tfCursosAreaConhec.getText().equals("")) {
-			JOptionPane.showMessageDialog(null, "FALHA NO CADASTRO \n INSIRA O CODIGO DE ALGUM CURSO PARA REMOVER");
-		} else {
-			curso.setNomeCurso(tfCursosNome.getText());
-			curso.setCodigoCurso(Integer.parseInt(tfCursosCod.getText()));
-			curso.setAreaConhecimento(tfCursosAreaConhec.getText());
-			c.inserirCurso(curso);
-			taCursosLista.setText(" CADASTRO REALIZADO \n INFORMAÇÕES CADASTRADAS : " + "\n CODIGO : "
-					+ curso.getCodigoCurso() + "\n NOME: " + curso.getNomeCurso() + "\n AREA DO CONHECIMENTO: "
-					+ curso.getAreaConhecimento());
-		}
+	    Curso curso = new Curso();
+	    CursoDAO c = new CursoDAO();
+	    
+	    if (tfCursosNome.getText().equals("") || tfCursosCod.getText().equals("")
+	            || tfCursosAreaConhec.getText().equals("")) {
+	        JOptionPane.showMessageDialog(null, "FALHA NO CADASTRO \n TODOS OS CAMPOS DEVEM SER PREENCHIDOS");
+	        return;
+	    }
+	    
+	    try {
+	        curso.setCodigoCurso(Integer.parseInt(tfCursosCod.getText()));
+	    } catch (NumberFormatException e) {
+	        JOptionPane.showMessageDialog(null, "O CÓDIGO DO CURSO DEVE SER UM NÚMERO VÁLIDO");
+	        return;
+	    }
+	    
+	    curso.setNomeCurso(tfCursosNome.getText());
+	    curso.setAreaConhecimento(tfCursosAreaConhec.getText());
+	    
+	    if (c.cursoJaExiste(curso.getCodigoCurso())) {
+	        JOptionPane.showMessageDialog(null, "O CURSO JÁ ESTÁ CADASTRADO COM O CÓDIGO: " + curso.getCodigoCurso());
+	        return;
+	    }
+	    
+	    c.inserirCurso(curso);
+	    taCursosLista.setText("CADASTRO REALIZADO \n INFORMAÇÕES CADASTRADAS: " +
+	            "\n CODIGO: " + curso.getCodigoCurso() +
+	            "\n NOME: " + curso.getNomeCurso() +
+	            "\n AREA DO CONHECIMENTO: " + curso.getAreaConhecimento());
 	}
 
 }

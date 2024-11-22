@@ -41,6 +41,11 @@ public class InscricaoDAO {
 		File arquivo = new File(caminho, "inscricoes.csv");
 		File diretorio = new File(caminho);
 		
+		if (inscricaoJaExiste(inscricao.getCpf())) {
+	        System.err.println("Inscrição já realizada com o CPF: " + inscricao.getCpf());
+	        return; // Não grava
+	    }
+		
 		if(!diretorio.exists()) {
 			diretorio.mkdir();
 		}
@@ -51,12 +56,40 @@ public class InscricaoDAO {
 			}catch (IOException e) {
 				System.err.println(e.getMessage());
 			}
-		}
+		}		
+				
 		try (BufferedWriter gravar = new BufferedWriter(new FileWriter(arquivo, true))){
 			gravar.write(inscricao.toString());
+			gravar.newLine();
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 		}
+	}
+	
+	public boolean inscricaoJaExiste(String cpf) {
+	    String caminho = "C:\\TEMP";
+	    File arquivo = new File(caminho, "inscricoes.csv");
+
+	    if (!arquivo.exists()) {
+	        return false;
+	    }
+
+	    try (BufferedReader leitor = new BufferedReader(new FileReader(arquivo))) {
+	        String linha;
+
+	        leitor.readLine();
+
+	        while ((linha = leitor.readLine()) != null) {
+	            String[] dados = linha.split(";");
+	            if (dados.length > 0 && dados[0].equals(cpf)) {
+	                return true;
+	            }
+	        }
+	    } catch (IOException e) {
+	        System.err.println(e.getMessage());
+	    }
+
+	    return false;
 	}
 
 	public Lista<Inscricao> consultarInscricoes() {

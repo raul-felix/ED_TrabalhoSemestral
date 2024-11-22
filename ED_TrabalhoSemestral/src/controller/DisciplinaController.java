@@ -3,6 +3,7 @@ package controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalTime;
+import java.time.format.DateTimeParseException;
 
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
@@ -131,32 +132,49 @@ public class DisciplinaController implements ActionListener {
 	private void cadastraDisciplina() {
 		Disciplina disciplina = new Disciplina();
 		DisciplinaDAO d = new DisciplinaDAO();
-		if (tfDisDisciplina.getText().equals("") ||tfDisCodigo.getText().equals("") ||tfDisData.getText().equals("") ||
-				tfDisHorario.getText().equals("") ||tfDisCargaHorariaDiaria.getText().equals("") 
-				||tfDisCodProcesso.getText().equals("") || tfDisCodCurso.getText().equals("")) {
-			JOptionPane.showMessageDialog(null," FALHA NO CADASTRO \n PREENCHA TODOS OS CAMPOS PARA REALIZAR O CADASTRO");
-		} else {
-			try {
-				disciplina.setNomeDisciplina(tfDisDisciplina.getText());
-				disciplina.setCodigoDisciplina(Integer.parseInt(tfDisCodigo.getText()));
-				disciplina.setDiaDaSemana(tfDisData.getText());
-//				disciplina.setHorarioinicial(Integer.parseInt(tfDisCargaHorariaDiaria.getText())); O que fazer com o local time?
-				disciplina.setQtdHorasDiarias(Integer.parseInt(tfDisCargaHorariaDiaria.getText())); // precisa mesmo ser int ?
-				disciplina.setCodigoProcesso(Integer.parseInt(tfDisCodProcesso.getText()));
-				disciplina.setCodigoCurso(Integer.parseInt(tfDisCodCurso.getText()));
-				d.inserirDisciplina(disciplina);
-				taDisLista.setText(" CURSO CADASTRADO COM SUCESSO \n INFORMAÇÕES CADASTRADAS : " + "\n NOME : "
-						+ disciplina.getNomeDisciplina() + "\n CODIGO DA DISCIPLINA: " + disciplina.getCodigoDisciplina() +
-						"\n DATA : " +disciplina.getDiaDaSemana() + "\n HORARIO : " +disciplina.getHorarioinicial()+ 
-						"\n CARGA HORARIA DIARIA: " +disciplina.getQtdHorasDiarias()+ "\n CODIGO DO PROCESSO: " +disciplina.getCodigoProcesso()+
-						"\n CODIGO DO CURSO: "+disciplina.getCodigoCurso()); 
-			} catch (Exception e) {
-				taDisLista.setCaret((Caret) e);
-			}
-		}
-		
-	}
+		if (tfDisDisciplina.getText().isEmpty() || tfDisCodigo.getText().isEmpty() || 
+		        tfDisData.getText().isEmpty() || tfDisHorario.getText().isEmpty() || 
+		        tfDisCargaHorariaDiaria.getText().isEmpty() || tfDisCodProcesso.getText().isEmpty() || 
+		        tfDisCodCurso.getText().isEmpty()) {
+		        JOptionPane.showMessageDialog(null, "FALHA NO CADASTRO: TODOS OS CAMPOS DEVEM SER PREENCHIDOS.");
+		        return;
+		    }
+		try {
+	        // Preenche os dados da disciplina
+	        disciplina.setNomeDisciplina(tfDisDisciplina.getText());
+	        disciplina.setCodigoDisciplina(Integer.parseInt(tfDisCodigo.getText()));
+	        disciplina.setDiaDaSemana(tfDisData.getText());
+	        disciplina.setQtdHorasDiarias(Integer.parseInt(tfDisCargaHorariaDiaria.getText()));
+	        disciplina.setCodigoProcesso(Integer.parseInt(tfDisCodProcesso.getText()));
+	        disciplina.setCodigoCurso(Integer.parseInt(tfDisCodCurso.getText()));
+	        
+	        try {
+	            disciplina.setHorarioinicial(LocalTime.parse(tfDisHorario.getText()));
+	        } catch (DateTimeParseException e) {
+	            JOptionPane.showMessageDialog(null, "HORÁRIO INVÁLIDO. USE O FORMATO HH:mm.");
+	            return;
+	        }
 
-	
+	        if (d.disciplinaJaExiste(disciplina.getCodigoDisciplina())) {
+	            JOptionPane.showMessageDialog(null, "FALHA NO CADASTRO: JÁ EXISTE UMA DISCIPLINA COM ESTE CÓDIGO.");
+	            return;
+	        }
+	        
+	        d.inserirDisciplina(disciplina);	       
+	        taDisLista.setText("DISCIPLINA CADASTRADA COM SUCESSO\nINFORMAÇÕES CADASTRADAS:" +
+	            "\n NOME: " + disciplina.getNomeDisciplina() +
+	            "\n CÓDIGO DA DISCIPLINA: " + disciplina.getCodigoDisciplina() +
+	            "\n DATA: " + disciplina.getDiaDaSemana() +
+	            "\n HORÁRIO: " + disciplina.getHorarioinicial() +
+	            "\n CARGA HORÁRIA DIÁRIA: " + disciplina.getQtdHorasDiarias() +
+	            "\n CÓDIGO DO PROCESSO: " + disciplina.getCodigoProcesso() +
+	            "\n CÓDIGO DO CURSO: " + disciplina.getCodigoCurso());
+	    } catch (NumberFormatException e) {
+	        JOptionPane.showMessageDialog(null, "ALGUNS CAMPOS DEVEM CONTER NÚMEROS VÁLIDOS.");
+	    } catch (Exception e) {
+	        JOptionPane.showMessageDialog(null, "ERRO AO CADASTRAR DISCIPLINA: " + e.getMessage());
+	    }
+		
+	}	
 
 }

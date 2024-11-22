@@ -133,13 +133,17 @@ public class ProfessorController implements ActionListener {
 				professor.setAreaConhecimento(tfProfAreaCon.getText());
 				professor.setQtdPontos(Integer.parseInt(tfProfPont.getText()) );
 //				professor.setCodigoProfessor(Integer.parseInt(tfProfCPF.getText()));
+				if (p.professorJaExiste(tfProfCPF.getText())) {
+				    JOptionPane.showMessageDialog(null, "Inscrição já realizada com o CPF: " + professor.getCpf());
+				    return;
+				}
 				p.inserirProfessor(professor);
-				taProfLista.setText(" CURSO ATUALIZADO COM SUCESSO \n INFORMAÇÕES CADASTRADAS : " + "\n NOME : "
+				taProfLista.setText("PROFESSOR ATUALIZADO COM SUCESSO \n INFORMAÇÕES CADASTRADAS : " + "\n NOME : "
 						+ professor.getNomeProfessor() + "\n CPF: " + professor.getCpf() +
 						"\n AREA DO CONHECIMENTO : " +professor.getAreaConhecimento() + "\n QUANTIDADE DE PONTOS : " +professor.getQtdPontos() 
 						); 
 			} catch (Exception e) {
-				taProfLista.setCaret((Caret) e);
+				JOptionPane.showMessageDialog(null, "Erro ao cadastrar professor: " + e.getMessage());
 			}
 		}
 	}

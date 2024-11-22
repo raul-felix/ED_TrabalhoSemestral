@@ -56,6 +56,6 @@ public class Disciplina {
 	
 	@Override
 	public String toString() {
-		return getCodigoDisciplina() + ";" + getNomeDisciplina() + ";" + getDiaDaSemana() + ";" + getHorarioinicial() + ";" + getQtdHorasDiarias() + ";" + getCodigoProcesso() + ";" + getCodigoCurso() +"\n";
+		return getCodigoDisciplina() + ";" + getNomeDisciplina() + ";" + getDiaDaSemana() + ";" + getHorarioinicial() + ";" + getQtdHorasDiarias() + ";" + getCodigoProcesso() + ";" + getCodigoCurso();
 	}
 }
