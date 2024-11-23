@@ -15,6 +15,8 @@ import dao.DisciplinaDAO;
 import model.Disciplina;
 
 public class DisciplinaController implements ActionListener {
+//Nesta classe temos os metodos que integram a tela "Disciplina" com os metodos internos do sistemas "DisciplinaDAO"
+//Tambem é aqui que ocorre o tratamento de erro, e retorno responsivo do sistema Destas classes
 	
 	private JTextField tfDisCodigo;
 	private JTextField tfDisData;
@@ -59,6 +61,9 @@ public class DisciplinaController implements ActionListener {
 		}
 	}
 
+//	Função para chamada e tratamento de erro da
+//	listagem de Disciplina na textArea da tela Disciplina
+	
 	private void listarDisciplina() throws Exception {
 		DisciplinaDAO d = new DisciplinaDAO();
 		Lista<Disciplina> lista = d.consultarDisciplinas();
@@ -82,11 +87,14 @@ public class DisciplinaController implements ActionListener {
 		}
 		taDisLista.setText(buffer.toString()); 
 	}
-
+	
+	
+//	Função para chamada e tratamento de erro do Metodo "remoção" de uma Disciplina 
+//	sendo necessarioa penas a passagem do parametro "codigo" de disciplina
+	
 	private void removerDisciplina() {
 		DisciplinaDAO d = new DisciplinaDAO();
 		Disciplina disciplina = new Disciplina();
-//		disciplina.setCodigoDisciplina(Integer.parseInt(tfDisCodigo.getText()));
 		
 		if (tfDisCodigo.getText().equals("")) {
 			JOptionPane.showMessageDialog(null, "FALHA NA REMOÇÃO \n INSIRA O CODIGO DE ALGUM CURSO PARA REMOVER");
@@ -100,6 +108,10 @@ public class DisciplinaController implements ActionListener {
 			}
 		}
 	}
+
+	
+//	Função para chamada e tratamento de erro do metodo "atualizar" 
+//	sendo necessario o preeenchimento de todos os campos	
 	
 	private void atualizarDisciplina() {
 		Disciplina disciplina = new Disciplina();
@@ -107,7 +119,7 @@ public class DisciplinaController implements ActionListener {
 		if (tfDisDisciplina.getText().equals("") ||tfDisCodigo.getText().equals("") ||tfDisData.getText().equals("") ||
 				tfDisHorario.getText().equals("") ||tfDisCargaHorariaDiaria.getText().equals("") 
 				||tfDisCodProcesso.getText().equals("") || tfDisCodCurso.getText().equals("")) {
-			JOptionPane.showMessageDialog(null," FALHA NA ATUALIZAÇÃO \n PREENCHA TODOS OS CAMPOS PARA REALIZAR A ATUALIZAÇÃO");
+			JOptionPane.showMessageDialog(null," FALHA NA ATUALIZAÇÃO \n TODOS OS CAMPOS DEVEM SER PREENCHIDOS");
 		} else {
 			try {
 				disciplina.setNomeDisciplina(tfDisDisciplina.getText());
@@ -128,7 +140,8 @@ public class DisciplinaController implements ActionListener {
 			}
 		}
 	}
-	
+//	Função para a chamada e tratamento de erro do metodo "cadastrar" 
+//	sendo necessario o preeenchimento de todos os campos	
 	private void cadastraDisciplina() {
 		Disciplina disciplina = new Disciplina();
 		DisciplinaDAO d = new DisciplinaDAO();
@@ -136,7 +149,7 @@ public class DisciplinaController implements ActionListener {
 		        tfDisData.getText().isEmpty() || tfDisHorario.getText().isEmpty() || 
 		        tfDisCargaHorariaDiaria.getText().isEmpty() || tfDisCodProcesso.getText().isEmpty() || 
 		        tfDisCodCurso.getText().isEmpty()) {
-		        JOptionPane.showMessageDialog(null, "FALHA NO CADASTRO: TODOS OS CAMPOS DEVEM SER PREENCHIDOS.");
+		        JOptionPane.showMessageDialog(null, "FALHA NO CADASTRO \n TODOS OS CAMPOS DEVEM SER PREENCHIDOS.");
 		        return;
 		    }
 		try {

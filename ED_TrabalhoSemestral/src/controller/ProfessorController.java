@@ -13,6 +13,8 @@ import dao.ProfessorDAO;
 import model.Professor;
 
 public class ProfessorController implements ActionListener {
+//Nesta classe temos os metodos que integram a tela "Professor" com os metodos internos do sistemas "ProfessorDAO"
+//Tambem é aqui que ocorre o tratamento de erro, e retorno responsivo do sistema Destas classes
 	
 	private JTextField tfProfCPF;
 	private JTextField tfProfNome;
@@ -36,7 +38,7 @@ public class ProfessorController implements ActionListener {
 			atualizarProfessor();
 		}	
 		if (cmd.equals("Cadastrar")) {
-			inserirProfessor();
+			cadastrarProfessor();
 		}	
 		if (cmd.equals("Remover")) {
 			removerProfessor();
@@ -51,6 +53,9 @@ public class ProfessorController implements ActionListener {
 		}
 	}
 
+//	Função para chamada e tratamento de erro da
+//	listagem de Professores na textArea da tela Professor	
+	
 	private void listarProfessor() throws Exception {
 		ProfessorDAO p = new ProfessorDAO();
 		Lista<Professor> lista = p.consultarProfessores();
@@ -71,20 +76,20 @@ public class ProfessorController implements ActionListener {
 		taProfLista.setText(buffer.toString());
 	}
 
+//	Função para a chamada e tratamento de erro do Metodo "remoção" de um Professor 
+//	sendo necessarioa penas a passagem do parametro "CPF"
 	private void removerProfessor() {
 
 		Professor professor = new Professor();
+		professor.setCpf(tfProfCPF.getText());
 		ProfessorDAO p = new ProfessorDAO();
 		if (tfProfCPF.getText().equals("") ) {
 			JOptionPane.showMessageDialog(null," FALHA NO CADASTRO \n INSIRA O CPF PARA REMOVER UM PROFESSOR");
 		} else {
-			int codigo = Integer.parseInt(tfProfCPF.getText()) ; // metodo não funcionando, resolver questão do contador "CodigoProfessor"
+			int codigo = Integer.parseInt(tfProfCPF.getText()) ; 
 			try {
 				p.removerProfessor(codigo);
-				taProfLista.setText(" PROFESSOR REMOVIDO COM SUCESSO \n INFORMAÇÕES CADASTRADAS : " + "\n NOME : "
-						+ professor.getNomeProfessor() + "\n CPF: " + professor.getCpf() +
-						"\n AREA DO CONHECIMENTO : " +professor.getAreaConhecimento() + "\n QUANTIDADE DE PONTOS : " +professor.getQtdPontos() 
-						); 
+				taProfLista.setText(" PROFESSOR SOBRE O CPF "+professor.getCpf()+ "  REMOVIDO COM SUCESSO "); 
 			} catch (Exception e) {
 				taProfLista.setCaret((Caret) e);
 			}
@@ -92,6 +97,8 @@ public class ProfessorController implements ActionListener {
 	
 		
 	}
+//	Função para a chamada e tratamento de erro do metodo "atualizar" 
+//	sendo necessario o preeenchimento de todos os campos
 
 	private void atualizarProfessor() {
 
@@ -99,7 +106,7 @@ public class ProfessorController implements ActionListener {
 		ProfessorDAO p = new ProfessorDAO();
 		if (tfProfAreaCon.getText().equals("") || tfProfCPF.getText().equals("") ||tfProfNome.getText().equals("") ||
 				tfProfPont.getText().equals("") ) {
-			JOptionPane.showMessageDialog(null," FALHA NA ATUALIZAÇÃO \n PREENCHA TODOS OS CAMPOS PARA REALIZAR A ATUALIZAÇÃO");
+			JOptionPane.showMessageDialog(null," FALHA NA ATUALIZAÇÃO \n TODOS OS CAMPOS DEVEM SER PREENCHIDOS");
 		} else {
 			try {
 				professor.setCpf(tfProfCPF.getText());
@@ -120,12 +127,15 @@ public class ProfessorController implements ActionListener {
 
 	}
 	
-	private void inserirProfessor() {
+//	Função para a chamada e tratamento de erro do metodo "cadastrar" 
+//	sendo necessario o preeenchimento de todos os campos
+	
+	private void cadastrarProfessor() {
 		Professor professor = new Professor();
 		ProfessorDAO p = new ProfessorDAO();
 		if (tfProfAreaCon.getText().equals("") || tfProfCPF.getText().equals("") ||tfProfNome.getText().equals("") ||
 				tfProfPont.getText().equals("") ) {
-			JOptionPane.showMessageDialog(null," FALHA NO CADASTRO \n PREENCHA TODOS OS CAMPOS PARA REALIZAR A ATUALIZAÇÃO");
+			JOptionPane.showMessageDialog(null," FALHA NO CADASTRO \n TODOS OS CAMPOS DEVEM SER PREENCHIDOS");
 		} else {
 			try {
 				professor.setCpf(tfProfCPF.getText());
@@ -134,7 +144,7 @@ public class ProfessorController implements ActionListener {
 				professor.setQtdPontos(Integer.parseInt(tfProfPont.getText()) );
 //				professor.setCodigoProfessor(Integer.parseInt(tfProfCPF.getText()));
 				if (p.professorJaExiste(tfProfCPF.getText())) {
-				    JOptionPane.showMessageDialog(null, "Inscrição já realizada com o CPF: " + professor.getCpf());
+					 JOptionPane.showMessageDialog(null, "Inscrição já realizada com o CPF: " + professor.getCpf());
 				    return;
 				}
 				p.inserirProfessor(professor);

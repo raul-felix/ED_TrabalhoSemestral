@@ -152,7 +152,7 @@ public class ProfessorDAO {
 				String linha;
 				while((linha = ler.readLine()) != null) {
 					String[] dados = linha.split(";");
-					if(Integer.parseInt(dados[0]) != codigo) {
+					if(Integer.parseInt(dados[1]) != codigo) {
 						gravar.write(linha);
 						gravar.newLine();
 					}

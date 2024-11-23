@@ -13,7 +13,9 @@ import model.Curso;
 import javax.swing.JOptionPane;
 
 public class CursoController implements ActionListener {
-
+//Nesta classe temos os metodos que integram a tela "Curso" com os metodos internos do sistemas "CursoDAO"
+//Tambem é aqui que ocorre o tratamento de erro, e retorno responsivo do sistema Destas classes
+	
 	private JTextField tfCursosCod;
 	private JTextField tfCursosNome;
 	private JTextField tfCursosAreaConhec;
@@ -47,6 +49,9 @@ public class CursoController implements ActionListener {
 			}
 		}
 	}
+	
+//	Função para chamada e tratamento de erro da
+//	listagem de cursos na textArea da tela cursos
 
 	private void listarCursos() throws Exception {
 		CursoDAO c = new CursoDAO();
@@ -64,13 +69,16 @@ public class CursoController implements ActionListener {
 		}
 		taCursosLista.setText(buffer.toString());
 	}
+	
+//	Função para chamada e tratamento de erro do Metodo "remoção" de um curso 
+//	sendo necessarioa penas a passagem do parametro "codigo"
 
 	private void removerCurso() {
 		Curso curso = new Curso();
-//		curso.setCodigoCurso(Integer.parseInt(tfCursosCod.getText()));
+		curso.setCodigoCurso(Integer.parseInt(tfCursosCod.getText()));
 		CursoDAO c = new CursoDAO();
-		if (tfCursosCod.getText().equals("")) {
-			JOptionPane.showMessageDialog(null, "FALHA NA REMOÇÃO \n INSIRA O CODIGO DE ALGUM CURSO PARA REMOVER");
+		if (tfCursosCod.getText().equals("")) { 
+ 			JOptionPane.showMessageDialog(null, "FALHA NA REMOÇÃO \n INSIRA O CODIGO DE ALGUM CURSO PARA REMOVER");
 			
 		} else {
 			int codigo = Integer.parseInt(tfCursosCod.getText());
@@ -83,13 +91,16 @@ public class CursoController implements ActionListener {
 		}
 
 	}
+	
+//	Função para a chamada e tratamento de erro do metodo "atualizar" 
+//	sendo necessario o preeenchimento de todos os campos 
 
 	private void atualizarCurso() {
 		Curso curso = new Curso();
 		CursoDAO c = new CursoDAO();
 		if (tfCursosNome.getText().equals("") || tfCursosCod.getText().equals("")
 				|| tfCursosAreaConhec.getText().equals("")) {
-			JOptionPane.showMessageDialog(null," FALHA NA ATUALIZAÇÃO \n PREENCHA TODOS OS CAMPOS PARA REALIZAR A ATUALIZAÇÃO");
+			JOptionPane.showMessageDialog(null," FALHA NA ATUALIZAÇÃO \n TODOS OS CAMPOS DEVEM SER PREENCHIDOS");
 		} else {
 			try {
 				curso.setNomeCurso(tfCursosNome.getText());
@@ -105,6 +116,9 @@ public class CursoController implements ActionListener {
 			}
 		}
 	}
+	
+//	Função para a chamada e tratamento de erro do metodo "cadastrar" 
+//	sendo necessario o preeenchimento de todos os campos 
 
 	private void cadastraCurso() {
 	    Curso curso = new Curso();
