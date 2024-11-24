@@ -10,6 +10,7 @@ import controller.CursoController;
 import controller.DisciplinaController;
 import controller.InscricaoController;
 import controller.ProfessorController;
+import controller.TabelaController;
 
 import javax.swing.JTabbedPane;
 import javax.swing.JLabel;
@@ -371,8 +372,20 @@ public class Tela extends JFrame {
 		JPanel tabConsInscri = new JPanel();
 		tabbedPane.addTab("Consulta Inscritos", null, tabConsInscri, null);
 		
-		JPanel tabConsDiscip = new JPanel();
-		tabbedPane.addTab("Consulta Disciplinas", null, tabConsDiscip, null);
+		JPanel tabTabelaInscri = new JPanel();
+		tabbedPane.addTab("Tabela de Inscrições", null, tabTabelaInscri, null);
+		tabTabelaInscri.setLayout(null);
+		
+		JButton btnCarregarTabela = new JButton("Carregar Tabela");
+		btnCarregarTabela.setBounds(10, 11, 135, 23);
+		tabTabelaInscri.add(btnCarregarTabela);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(10, 45, 779, 534);
+		tabTabelaInscri.add(scrollPane);
+		
+		JTextArea taTabela = new JTextArea();
+		scrollPane.setViewportView(taTabela);
 		
 		CursoController cCont = new CursoController(tfCursosCod, tfCursosNome, tfCursosAreaConhec, taCursosLista);
 		
@@ -402,7 +415,9 @@ public class Tela extends JFrame {
 		btnProfRemover.addActionListener(cProf);
 		btnProfListar.addActionListener(cProf);
 		
-				
+		TabelaController cTab = new TabelaController(taTabela);
+		
+		btnCarregarTabela.addActionListener(cTab);		
 	}
 }
 

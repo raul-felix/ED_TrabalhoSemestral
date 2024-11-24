@@ -11,18 +11,18 @@ import br.com.fatec.Lista;
 import model.Professor;
 
 public class ProfessorDAO {
-	public Professor buscarProfessor(int codigo) {
+	public Professor buscarProfessor(String cpf) {
 		String arquivo = "C:\\TEMP\\professor.csv";
 		
 		try (BufferedReader ler = new BufferedReader(new FileReader(arquivo))){
 			String linha;
 			while((linha = ler.readLine()) != null) {
 				String[] dados = linha.split(";");
-				int codigoProfessor = Integer.parseInt(dados[0]);
+				String cpfProfessor = dados[1];
 				
-				if (codigo == codigoProfessor) {
+				if (cpf.equals(cpfProfessor)) {
 					Professor professor = new Professor();
-					professor.setCodigoProfessor(codigoProfessor); 
+					professor.setCodigoProfessor(Integer.parseInt(dados[0])); 
 					professor.setCpf(dados[1]);
 					professor.setNomeProfessor(dados[2]);
 					professor.setAreaConhecimento(dados[3]);
