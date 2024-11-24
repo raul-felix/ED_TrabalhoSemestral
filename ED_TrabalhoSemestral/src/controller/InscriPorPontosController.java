@@ -9,13 +9,8 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import br.com.fatec.Lista;
-import br.com.jonas.Sorts;
-import dao.CursoDAO;
-import dao.DisciplinaDAO;
 import dao.InscricaoDAO;
 import dao.ProfessorDAO;
-import model.Curso;
-import model.Disciplina;
 import model.Inscricao;
 import model.Professor;
 import util.QuickSortProfessor;

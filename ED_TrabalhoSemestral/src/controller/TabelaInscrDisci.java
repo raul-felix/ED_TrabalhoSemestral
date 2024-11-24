@@ -10,6 +10,7 @@ public class TabelaInscrDisci {
 	Lista<Inscricao>[] tabelaHashInscricoes;
 	
 	//Contrutor cria um vetor com o tamanho necessário para todas as disciplinas cadastradas e inicializa a tabela
+	@SuppressWarnings("unchecked")
 	public TabelaInscrDisci() {
 		DisciplinaDAO disciplinaDAO = new DisciplinaDAO();
 		Lista<Disciplina> listaDisciplinas = disciplinaDAO.consultarDisciplinas();

@@ -113,6 +113,7 @@ public class InscricaoDAO {
 		return inscricoes;
 	}
 	
+	//Consulta as incrições de uma disciplina específica de acordo com seu código
 	public Lista<Inscricao> consultarInscricoesPorDisciplina(int codDisciplina) throws Exception {
 		String arquivo = "C:\\TEMP\\inscricoes.csv";
 		Lista<Inscricao> inscricoes = new Lista<Inscricao>();

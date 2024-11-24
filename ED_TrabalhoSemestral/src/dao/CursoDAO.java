@@ -118,7 +118,7 @@ public class CursoDAO{
 				String linha;
 				while((linha = ler.readLine()) != null) {
 					String[] dados = linha.split(";");
-					if(dados[0].equals(curso.getCodigoCurso())) {
+					if(Integer.parseInt(dados[0]) == curso.getCodigoCurso()) {
 						gravar.write(curso.toString());
 					}else {
 						gravar.write(linha);
