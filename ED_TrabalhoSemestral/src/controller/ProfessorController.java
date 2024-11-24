@@ -86,7 +86,7 @@ public class ProfessorController implements ActionListener {
 		if (tfProfCPF.getText().equals("") ) {
 			JOptionPane.showMessageDialog(null," FALHA NO CADASTRO \n INSIRA O CPF PARA REMOVER UM PROFESSOR");
 		} else {
-			int codigo = Integer.parseInt(tfProfCPF.getText()) ; 
+			long codigo = Long.parseLong(tfProfCPF.getText()) ; 
 			try {
 				p.removerProfessor(codigo);
 				taProfLista.setText(" PROFESSOR SOBRE O CPF "+professor.getCpf()+ "  REMOVIDO COM SUCESSO "); 
@@ -110,10 +110,10 @@ public class ProfessorController implements ActionListener {
 		} else {
 			try {
 				professor.setCpf(tfProfCPF.getText());
-				professor.setNomeProfessor(tfProfCPF.getText());
-				professor.setAreaConhecimento(tfProfCPF.getText());
-				professor.setQtdPontos(Integer.parseInt(tfProfCPF.getText()) );
-				professor.setCodigoProfessor(Integer.parseInt(tfProfCPF.getText()));
+				professor.setNomeProfessor(tfProfNome.getText());
+				professor.setAreaConhecimento(tfProfAreaCon.getText());
+				professor.setQtdPontos(Integer.parseInt(tfProfPont.getText()) );
+				professor.setCodigoProfessor(professor.hashCode());
 				p.atualizarProfessor(professor);
 				taProfLista.setText(" CURSO ATUALIZADO COM SUCESSO \n INFORMAÇÕES CADASTRADAS : " + "\n NOME : "
 						+ professor.getNomeProfessor() + "\n CPF: " + professor.getCpf() +
@@ -142,7 +142,7 @@ public class ProfessorController implements ActionListener {
 				professor.setNomeProfessor(tfProfNome.getText());
 				professor.setAreaConhecimento(tfProfAreaCon.getText());
 				professor.setQtdPontos(Integer.parseInt(tfProfPont.getText()) );
-//				professor.setCodigoProfessor(Integer.parseInt(tfProfCPF.getText()));
+				professor.setCodigoProfessor(professor.hashCode());
 				if (p.professorJaExiste(tfProfCPF.getText())) {
 					 JOptionPane.showMessageDialog(null, "Inscrição já realizada com o CPF: " + professor.getCpf());
 				    return;

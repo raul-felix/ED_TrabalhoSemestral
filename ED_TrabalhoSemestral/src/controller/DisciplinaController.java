@@ -125,7 +125,7 @@ public class DisciplinaController implements ActionListener {
 				disciplina.setNomeDisciplina(tfDisDisciplina.getText());
 				disciplina.setCodigoDisciplina(Integer.parseInt(tfDisCodigo.getText()));
 				disciplina.setDiaDaSemana(tfDisData.getText());
-//				disciplina.setHorarioinicial(Integer.parseInt(tfDisCargaHorariaDiaria.getText())); O que fazer com o local time?
+				disciplina.setHorarioinicial(LocalTime.parse(tfDisHorario.getText()));
 				disciplina.setQtdHorasDiarias(Integer.parseInt(tfDisCargaHorariaDiaria.getText())); 
 				disciplina.setCodigoProcesso(Integer.parseInt(tfDisCodProcesso.getText()));
 				disciplina.setCodigoCurso(Integer.parseInt(tfDisCodCurso.getText()));

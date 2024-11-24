@@ -143,7 +143,7 @@ public class ProfessorDAO {
         new File(atualizado).renameTo(new File(arquivo));
 	}
 
-	public void removerProfessor(int codigo) {
+	public void removerProfessor(long codigo) {
 		String arquivo = "C:\\TEMP\\professor.csv";
 		String atualizado = "C:\\TEMP\\professor_temp.csv";
 		
