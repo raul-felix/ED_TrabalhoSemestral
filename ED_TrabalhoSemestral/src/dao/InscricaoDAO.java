@@ -112,6 +112,29 @@ public class InscricaoDAO {
 		
 		return inscricoes;
 	}
+	
+	public Lista<Inscricao> consultarInscricoesPorDisciplina(int codDisciplina) throws Exception {
+		String arquivo = "C:\\TEMP\\inscricoes.csv";
+		Lista<Inscricao> inscricoes = new Lista<Inscricao>();
+		
+		try (BufferedReader ler = new BufferedReader(new FileReader(arquivo))){
+			String linha;
+			while((linha = ler.readLine()) != null) {
+				String[] dados = linha.split(";");
+				if(Integer.parseInt(dados[1]) == codDisciplina) {
+					Inscricao inscricao = new Inscricao();
+					inscricao.setCpf(dados[0]); 
+					inscricao.setCodigoDisciplina(Integer.parseInt(dados[1]));
+					inscricao.setCodigoProcesso(Integer.parseInt(dados[2]));
+					inscricoes.addLast(inscricao);
+				}
+			}
+		} catch (Exception e) {
+			System.err.println(e.getMessage());
+		}
+		
+		return inscricoes;
+	}
 
 	public void atualizarInscricao(Inscricao inscricao) {
 		String arquivo = "C:\\TEMP\\inscricoes.csv";

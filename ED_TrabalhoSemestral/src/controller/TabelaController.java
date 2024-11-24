@@ -19,7 +19,7 @@ public class TabelaController implements ActionListener {
 	
 	private JTextArea taTabela;
 	
-	//Contrutor passando a text area onde será carregada a tabela
+	//Contrutor passando a text area onde será carregada a tabela 
 	public TabelaController(JTextArea taTabela) {
 		this.taTabela = taTabela;
 	}
@@ -39,8 +39,8 @@ public class TabelaController implements ActionListener {
 	
 	//Lista todas as inscrições, adiciona cada inscrição na tabela e desenha a tabela na tela  
 	private void criarTabela() throws Exception {
-		InscricaoDAO ins = new InscricaoDAO();
-		Lista<Inscricao> lista = ins.consultarInscricoes();
+		InscricaoDAO inscricaoDAO = new InscricaoDAO();
+		Lista<Inscricao> lista = inscricaoDAO.consultarInscricoes();
 		int tamanho = lista.size();
 		TabelaDisciCursos tabelaDisciCursos = new TabelaDisciCursos();
 		for (int i = 0; i < tamanho; i++) {

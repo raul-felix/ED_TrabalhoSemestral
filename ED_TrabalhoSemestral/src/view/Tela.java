@@ -8,6 +8,7 @@ import javax.swing.border.EmptyBorder;
 
 import controller.CursoController;
 import controller.DisciplinaController;
+import controller.InscriPorPontosController;
 import controller.InscricaoController;
 import controller.ProfessorController;
 import controller.TabelaController;
@@ -43,6 +44,7 @@ public class Tela extends JFrame {
 	private JTextField tfInscCPF;
 	private JTextField tfInscCodDic;
 	private JTextField tfInscCodProc;
+	private JTextField tfCodDisciPorPontos;
 	
 
 	public static void main(String[] args) {
@@ -371,6 +373,28 @@ public class Tela extends JFrame {
 		
 		JPanel tabConsInscri = new JPanel();
 		tabbedPane.addTab("Consulta Inscritos", null, tabConsInscri, null);
+		tabConsInscri.setLayout(null);
+		
+		JLabel lblCodDisciPorPontos = new JLabel("Código da Disciplina:");
+		lblCodDisciPorPontos.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblCodDisciPorPontos.setBounds(10, 18, 151, 14);
+		tabConsInscri.add(lblCodDisciPorPontos);
+		
+		tfCodDisciPorPontos = new JTextField();
+		tfCodDisciPorPontos.setBounds(171, 17, 73, 20);
+		tabConsInscri.add(tfCodDisciPorPontos);
+		tfCodDisciPorPontos.setColumns(10);
+		
+		JButton btnListasPorPontos = new JButton("Listar por Pontuação");
+		btnListasPorPontos.setBounds(277, 16, 173, 23);
+		tabConsInscri.add(btnListasPorPontos);
+		
+		JScrollPane scrollPaneInscriPorPontos = new JScrollPane();
+		scrollPaneInscriPorPontos.setBounds(10, 59, 779, 520);
+		tabConsInscri.add(scrollPaneInscriPorPontos);
+		
+		JTextArea taInscriPorPontos = new JTextArea();
+		scrollPaneInscriPorPontos.setViewportView(taInscriPorPontos);
 		
 		JPanel tabTabelaInscri = new JPanel();
 		tabbedPane.addTab("Tabela de Inscrições", null, tabTabelaInscri, null);
@@ -380,12 +404,12 @@ public class Tela extends JFrame {
 		btnCarregarTabela.setBounds(10, 11, 135, 23);
 		tabTabelaInscri.add(btnCarregarTabela);
 		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 45, 779, 534);
-		tabTabelaInscri.add(scrollPane);
+		JScrollPane scrollPaneTabela = new JScrollPane();
+		scrollPaneTabela.setBounds(10, 45, 779, 534);
+		tabTabelaInscri.add(scrollPaneTabela);
 		
 		JTextArea taTabela = new JTextArea();
-		scrollPane.setViewportView(taTabela);
+		scrollPaneTabela.setViewportView(taTabela);
 		
 		CursoController cCont = new CursoController(tfCursosCod, tfCursosNome, tfCursosAreaConhec, taCursosLista);
 		
@@ -415,9 +439,13 @@ public class Tela extends JFrame {
 		btnProfRemover.addActionListener(cProf);
 		btnProfListar.addActionListener(cProf);
 		
+		InscriPorPontosController cInscriPorPontos = new InscriPorPontosController(tfCodDisciPorPontos, taInscriPorPontos);
+		
+		btnListasPorPontos.addActionListener(cInscriPorPontos);
+		
 		TabelaController cTab = new TabelaController(taTabela);
 		
-		btnCarregarTabela.addActionListener(cTab);		
+		btnCarregarTabela.addActionListener(cTab);
 	}
 }
 
