@@ -57,15 +57,27 @@ public class CursoController implements ActionListener {
 		CursoDAO c = new CursoDAO();
 		Lista<Curso> lista = c.consultarCursos();
 		int tamanho = lista.size();
-		StringBuffer buffer = new StringBuffer();
+		StringBuffer buffer = new StringBuffer("Nome\t\t\t"
+											 + "Código\t"
+											 + "Área do Conhecimento\n");
 		for (int i = 0; i < tamanho; i ++) {
 			Curso aux = lista.get(i);
 			String nomeCurso = aux.getNomeCurso();
 			int codigoCurso = aux.getCodigoCurso();
 			String areaConhecimentoCurso = aux.getAreaConhecimento();
-			buffer.append("Nome do curso: " + nomeCurso + ",\t" +
-						  "Código do curso: " + codigoCurso + ",\t" +
-						  "Área do conhecimento: " + areaConhecimentoCurso + "\n");
+			
+			String separator = "";
+			if (nomeCurso.length() > 26) {
+				separator = "\t";
+			} else if (nomeCurso.length() > 13) {
+				separator = "\t\t";
+			} else {
+				separator = "\t\t\t";
+			}
+			buffer.append(nomeCurso + separator);
+			
+			buffer.append(codigoCurso + "\t");
+			buffer.append(areaConhecimentoCurso + "\n");
 		}
 		taCursosLista.setText(buffer.toString());
 	}

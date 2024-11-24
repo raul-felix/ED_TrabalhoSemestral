@@ -68,7 +68,13 @@ public class DisciplinaController implements ActionListener {
 		DisciplinaDAO d = new DisciplinaDAO();
 		Lista<Disciplina> lista = d.consultarDisciplinas();
 		int tamanho = lista.size();
-		StringBuffer buffer = new StringBuffer();
+		StringBuffer buffer = new StringBuffer("Nome\t\t"
+											 + "Código\t"
+											 + "Data\t\t"
+											 + "Horário\t"
+											 + "Carga Horária Diária\t"
+											 + "Código do Processo\t"
+											 + "Código do Curso\n");
 		for (int i = 0; i < tamanho ; i ++) {
 			Disciplina aux = lista.get(i);
 			String nomeDis = aux.getNomeDisciplina();
@@ -78,12 +84,17 @@ public class DisciplinaController implements ActionListener {
 			int cargaHorariaDis = aux.getQtdHorasDiarias();
 			int codigoProcessoDis = aux.getCodigoProcesso();
 			int codigoCurso = aux.getCodigoCurso();
-			buffer.append("Nome da Disciplina: " +  nomeDis+ ",\t" +
-					  "Código do Disciplina: " + codigoDis + ",\t" +
-					  "Data : " + dataDis+ "Horário: " + horarioDis + ",\t" + 
-					  "Carga Horária Diaria: " + cargaHorariaDis + ",\t" + 
-					  "Código do Procesos: " + codigoProcessoDis + ",\t" + 
-					  "Código do Curso: " + codigoCurso + ",\t" +"\n");
+			
+			String separator = (nomeDis.length() > 13) ? "\t" : "\t\t";
+			buffer.append(nomeDis + separator);
+			buffer.append(codigoDis + "\t");
+			
+			separator = (dataDis.length() > 13) ? "\t" : "\t\t";
+			buffer.append(dataDis + separator);
+			buffer.append(horarioDis + "\t");
+			buffer.append(cargaHorariaDis + "\t\t");
+			buffer.append(codigoProcessoDis + "\t\t");
+			buffer.append(codigoCurso + "\n");
 		}
 		taDisLista.setText(buffer.toString()); 
 	}

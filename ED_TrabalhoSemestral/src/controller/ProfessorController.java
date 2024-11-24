@@ -60,17 +60,25 @@ public class ProfessorController implements ActionListener {
 		ProfessorDAO p = new ProfessorDAO();
 		Lista<Professor> lista = p.consultarProfessores();
 		int tamanho = lista.size();
-		StringBuffer buffer = new StringBuffer();
+		StringBuffer buffer = new StringBuffer("Nome\t\t"
+											 + "CPF\t\t"
+											 + "Área do Conhecimento\t"
+											 + "Pontuação\n");
 		for (int i = 0; i < tamanho ; i ++) {
 			Professor aux = lista.get(i);
-			String CPF = aux.getCpf();
-			String Nome = aux.getNomeProfessor();
-			String AreaConhecimento = aux.getAreaConhecimento();
-			int QtdPontos = aux.getQtdPontos();
-			buffer.append("CPF: " + CPF + ",\t" +
-					  "Nome : " + Nome + ",\t" +
-					  "Area do Conhecimento : " + AreaConhecimento + 
-					  "Quantidade de Pontos : " + QtdPontos + "\n");
+			String cpfProfessor = aux.getCpf();
+			String nomeProfessor = aux.getNomeProfessor();
+			String areaConhecimento = aux.getAreaConhecimento();
+			int pontuacao = aux.getQtdPontos();
+			String separator = (nomeProfessor.length() > 13) ? "\t" : "\t\t";
+			buffer.append(nomeProfessor + separator);
+			
+			separator = (cpfProfessor.length() > 13) ? "\t" : "\t\t";
+			buffer.append(cpfProfessor + separator);
+			
+			separator = (areaConhecimento.length() > 13) ? "\t" : "\t\t";
+			buffer.append(areaConhecimento + separator);
+			buffer.append(pontuacao + "\n");
 
 		}
 		taProfLista.setText(buffer.toString());

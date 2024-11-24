@@ -61,15 +61,18 @@ public class InscricaoController implements ActionListener {
 		InscricaoDAO ins = new InscricaoDAO();
 		Lista<Inscricao> lista = ins.consultarInscricoes();
 		int tamanho = lista.size();
-		StringBuffer buffer = new StringBuffer();
+		StringBuffer buffer = new StringBuffer("CPF\t\t"
+											 + "Código Disciplina\t"
+											 + "Código Processo\n");
 		for (int i = 0; i < tamanho; i ++) {
 			Inscricao aux = lista.get(i);
 			String CPF = aux.getCpf();
 			int codigoDis = aux.getCodigoDisciplina();
 			int codigoProceso = aux.getCodigoProcesso();
-			buffer.append("CPF: " + CPF + ",\t" +
-						  "Código Disciplina: " + codigoDis + ",\t" +
-						  "Código Processo: " + codigoProceso + "\n");
+			String separator = (CPF.length() > 13) ? "\t" : "\t\t";
+			buffer.append(CPF + separator);
+			buffer.append(codigoDis + "\t\t");
+			buffer.append(codigoProceso + "\n");
 		}
 		taInscLista.setText(buffer.toString());
 		

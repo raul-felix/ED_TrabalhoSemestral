@@ -159,7 +159,7 @@ public class Tela extends JFrame {
 		tfDisDisciplina.setColumns(10);
 		
 		JButton btnDisListar = new JButton("Listar Disciplinas");
-		btnDisListar.setBounds(329, 275, 115, 28);
+		btnDisListar.setBounds(329, 275, 174, 28);
 		tabDisciplina.add(btnDisListar);
 		
 		JButton btnDisAtualizar = new JButton("Atualizar");
@@ -167,7 +167,7 @@ public class Tela extends JFrame {
 		tabDisciplina.add(btnDisAtualizar);
 		
 		JButton btnDisRemover = new JButton("Remover");
-		btnDisRemover.setBounds(493, 275, 115, 28);
+		btnDisRemover.setBounds(547, 275, 115, 28);
 		tabDisciplina.add(btnDisRemover);
 		
 		JScrollPane scrollPaneDisciplina = new JScrollPane();
@@ -230,11 +230,11 @@ public class Tela extends JFrame {
 		tabCursos.add(btnCursosAtualizar);
 		
 		JButton btnCursosRemover = new JButton("Remover");
-		btnCursosRemover.setBounds(476, 273, 103, 27);
+		btnCursosRemover.setBounds(507, 273, 103, 27);
 		tabCursos.add(btnCursosRemover);
 		
 		JButton btnCursosListar = new JButton("Listar Cursos");
-		btnCursosListar.setBounds(322, 273, 103, 27);
+		btnCursosListar.setBounds(322, 273, 144, 27);
 		tabCursos.add(btnCursosListar);
 		
 		JScrollPane scrollPaneCursos = new JScrollPane();
@@ -290,8 +290,7 @@ public class Tela extends JFrame {
 		tfProfPont.setColumns(10);
 		
 		JButton btnProfCadastrar = new JButton("Cadastrar");
-		btnProfCadastrar.setBounds(242, 265, 111, 30);
-		btnProfCadastrar.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		btnProfCadastrar.setBounds(198, 265, 111, 30);
 		tabProfessor.add(btnProfCadastrar);
 		
 		JButton btnProfAtualizar = new JButton("Atualizar");
@@ -299,11 +298,11 @@ public class Tela extends JFrame {
 		tabProfessor.add(btnProfAtualizar);
 		
 		JButton btnProfRemover = new JButton("Remover");
-		btnProfRemover.setBounds(447, 265, 111, 30);
+		btnProfRemover.setBounds(571, 265, 111, 30);
 		tabProfessor.add(btnProfRemover);
 		
 		JButton btnProfListar = new JButton("Listar Professores");
-		btnProfListar.setBounds(358, 63, 200, 23);
+		btnProfListar.setBounds(353, 265, 183, 30);
 		tabProfessor.add(btnProfListar);
 		
 		JScrollPane scrollPaneProfessor = new JScrollPane();
@@ -353,15 +352,15 @@ public class Tela extends JFrame {
 		tabInscricao.add(btnInscAtualizar);
 		
 		JButton btnInscCadastrar = new JButton("Cadastrar");
-		btnInscCadastrar.setBounds(235, 247, 110, 30);
+		btnInscCadastrar.setBounds(190, 247, 110, 30);
 		tabInscricao.add(btnInscCadastrar);
 		
 		JButton btnInscRemover = new JButton("Remover");
-		btnInscRemover.setBounds(454, 247, 110, 30);
+		btnInscRemover.setBounds(541, 247, 110, 30);
 		tabInscricao.add(btnInscRemover);
 		
 		JButton btnInscListarInsc = new JButton("Listar Inscrições");
-		btnInscListarInsc.setBounds(402, 41, 140, 23);
+		btnInscListarInsc.setBounds(348, 247, 149, 30);
 		tabInscricao.add(btnInscListarInsc);
 		
 		JScrollPane scrollPaneInscricao = new JScrollPane();
