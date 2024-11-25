@@ -105,7 +105,6 @@ public class DisciplinaController implements ActionListener {
 	
 	private void removerDisciplina() {
 		DisciplinaDAO d = new DisciplinaDAO();
-		Disciplina disciplina = new Disciplina();
 		
 		if (tfDisCodigo.getText().equals("")) {
 			JOptionPane.showMessageDialog(null, "FALHA NA REMOÇÃO \n INSIRA O CODIGO DE ALGUM CURSO PARA REMOVER");
@@ -113,7 +112,7 @@ public class DisciplinaController implements ActionListener {
 			int codigo = Integer.parseInt(tfDisCodigo.getText()) ;
 			try {
 				d.removerDisciplina(codigo);
-				taDisLista.setText(" CURSO " + disciplina.getCodigoCurso() + " REMOVIDO COM SUCESSO");
+				taDisLista.setText(" CURSO " + tfDisCodCurso.getText() + " REMOVIDO COM SUCESSO");
 			} catch (Exception e) {
 				taDisLista.setCaret((Caret) e);
 			}
@@ -141,11 +140,11 @@ public class DisciplinaController implements ActionListener {
 				disciplina.setCodigoProcesso(Integer.parseInt(tfDisCodProcesso.getText()));
 				disciplina.setCodigoCurso(Integer.parseInt(tfDisCodCurso.getText()));
 				d.atualizarDisciplina(disciplina);
-				taDisLista.setText(" CURSO ATUALIZADO COM SUCESSO \n INFORMAÇÕES CADASTRADAS : " + "\n NOME : "
-						+ disciplina.getNomeDisciplina() + "\n CODIGO DA DISCIPLINA: " + disciplina.getCodigoDisciplina() +
-						"\n DATA : " +disciplina.getDiaDaSemana() + "\n HORARIO : " +disciplina.getHorarioinicial()+ 
-						"\n CARGA HORARIA DIARIA: " +disciplina.getQtdHorasDiarias()+ "\n CODIGO DO PROCESSO: " +disciplina.getCodigoProcesso()+
-						"\n CODIGO DO CURSO: "+disciplina.getCodigoCurso()); 
+				taDisLista.setText(" DISCIPLINA ATUALIZADA COM SUCESSO \n INFORMAÇÕES CADASTRADAS : " + "\n NOME : "
+						+ tfDisDisciplina.getText() + "\n CODIGO DA DISCIPLINA: " + tfDisCodigo.getText() +
+						"\n DATA : " +tfDisData.getText() + "\n HORARIO : " +tfDisHorario.getText() + 
+						"\n CARGA HORARIA DIARIA: " +tfDisCargaHorariaDiaria.getText()+ "\n CODIGO DO PROCESSO: " +tfDisCodProcesso.getText()+
+						"\n CODIGO DO CURSO: "+tfDisCodCurso.getText()); 
 			} catch (Exception e) {
 				taDisLista.setCaret((Caret) e);
 			}
@@ -185,15 +184,12 @@ public class DisciplinaController implements ActionListener {
 	        }
 	        
 	        d.inserirDisciplina(disciplina);	       
-	        taDisLista.setText("DISCIPLINA CADASTRADA COM SUCESSO\nINFORMAÇÕES CADASTRADAS:" +
-	            "\n NOME: " + disciplina.getNomeDisciplina() +
-	            "\n CÓDIGO DA DISCIPLINA: " + disciplina.getCodigoDisciplina() +
-	            "\n DATA: " + disciplina.getDiaDaSemana() +
-	            "\n HORÁRIO: " + disciplina.getHorarioinicial() +
-	            "\n CARGA HORÁRIA DIÁRIA: " + disciplina.getQtdHorasDiarias() +
-	            "\n CÓDIGO DO PROCESSO: " + disciplina.getCodigoProcesso() +
-	            "\n CÓDIGO DO CURSO: " + disciplina.getCodigoCurso());
-	    } catch (NumberFormatException e) {
+	        taDisLista.setText(" DISCIPLINA CADASTRADA COM SUCESSO \n INFORMAÇÕES CADASTRADAS : " + "\n NOME : "
+					+ tfDisDisciplina.getText() + "\n CODIGO DA DISCIPLINA: " + tfDisCodigo.getText() +
+					"\n DATA : " +tfDisData.getText() + "\n HORARIO : " +tfDisHorario.getText() + 
+					"\n CARGA HORARIA DIARIA: " +tfDisCargaHorariaDiaria.getText()+ "\n CODIGO DO PROCESSO: " +tfDisCodProcesso.getText()+
+					"\n CODIGO DO CURSO: "+tfDisCodCurso.getText()); 
+	        } catch (NumberFormatException e) {
 	        JOptionPane.showMessageDialog(null, "ALGUNS CAMPOS DEVEM CONTER NÚMEROS VÁLIDOS.");
 	    } catch (Exception e) {
 	        JOptionPane.showMessageDialog(null, "ERRO AO CADASTRAR DISCIPLINA: " + e.getMessage());

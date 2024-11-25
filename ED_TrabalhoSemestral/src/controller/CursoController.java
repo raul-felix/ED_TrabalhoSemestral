@@ -86,8 +86,6 @@ public class CursoController implements ActionListener {
 //	sendo necessarioa penas a passagem do parametro "codigo"
 
 	private void removerCurso() {
-		Curso curso = new Curso();
-		curso.setCodigoCurso(Integer.parseInt(tfCursosCod.getText()));
 		CursoDAO c = new CursoDAO();
 		if (tfCursosCod.getText().equals("")) { 
  			JOptionPane.showMessageDialog(null, "FALHA NA REMOÇÃO \n INSIRA O CODIGO DE ALGUM CURSO PARA REMOVER");
@@ -96,7 +94,7 @@ public class CursoController implements ActionListener {
 			int codigo = Integer.parseInt(tfCursosCod.getText());
 			try {
 				c.removerCurso(codigo);
-				taCursosLista.setText(" CURSO " + curso.getCodigoCurso() + " REMOVIDO COM SUCESSO");
+				taCursosLista.setText(" CURSO DE CODIGO " + tfCursosCod.getText() + " REMOVIDO COM SUCESSO");
 			} catch (Exception e) {
 				taCursosLista.setCaret((Caret) e);
 			}
@@ -120,8 +118,8 @@ public class CursoController implements ActionListener {
 				curso.setAreaConhecimento(tfCursosAreaConhec.getText());
 				c.atualizarCurso(curso);
 				taCursosLista.setText(" CURSO ATUALIZADO COM SUCESSO \n INFORMAÇÕES CADASTRADAS : " + "\n CODIGO : "
-						+ curso.getCodigoCurso() + "\n NOME: " + curso.getNomeCurso() + "\n AREA DO CONHECIMENTO: "
-						+ curso.getAreaConhecimento());
+						+ tfCursosCod.getText() + "\n NOME: " + tfCursosNome.getText() + "\n AREA DO CONHECIMENTO: "
+						+ tfCursosAreaConhec.getText());
 			} catch (Exception e) {
 				taCursosLista.setText(e.getMessage());
 
@@ -159,9 +157,9 @@ public class CursoController implements ActionListener {
 	    
 	    c.inserirCurso(curso);
 	    taCursosLista.setText("CADASTRO REALIZADO \n INFORMAÇÕES CADASTRADAS: " +
-	            "\n CODIGO: " + curso.getCodigoCurso() +
-	            "\n NOME: " + curso.getNomeCurso() +
-	            "\n AREA DO CONHECIMENTO: " + curso.getAreaConhecimento());
+	            "\n CODIGO: " + tfCursosCod.getText() +
+	            "\n NOME: " + tfCursosNome.getText() +
+	            "\n AREA DO CONHECIMENTO: " + tfCursosAreaConhec.getText() );
 	}
 
 }

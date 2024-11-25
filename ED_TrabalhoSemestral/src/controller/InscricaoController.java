@@ -83,16 +83,14 @@ public class InscricaoController implements ActionListener {
 //	sendo necessarioa penas a passagem do parametro "codigo" da disciplina	
 	private void removerInscricao() throws Exception {
 		InscricaoDAO ins = new InscricaoDAO();
-		 Inscricao inscricao = new Inscricao();
-//		inscricao.setCodigoDisciplina(Integer.parseInt(tfInscCodDic.getText()));
 		
 		if (tfInscCodDic.getText().equals("")) {
-			JOptionPane.showMessageDialog(null, "FALHA NA REMOÇÃO \n INSIRA O CODIGO DE ALGUM CURSO PARA REMOVER");
+			JOptionPane.showMessageDialog(null, "FALHA NA REMOÇÃO \n INSIRA O CODIGO DE ALGUMA DESCIPLINA PARA REMOVER");
 		} else {
 			int codigo = Integer.parseInt(tfInscCodDic.getText()) ;
 			try {
 				ins.removerInscricao(codigo);
-				taInscLista.setText(" CURSO " + inscricao.getCodigoDisciplina() + " REMOVIDO COM SUCESSO");
+				taInscLista.setText(" CURSO " + tfInscCodDic.getText() + " REMOVIDO COM SUCESSO");
 			} catch (Exception e) {
 				taInscLista.setCaret((Caret) e);
 			}
@@ -114,8 +112,8 @@ public class InscricaoController implements ActionListener {
 				inscricao.setCodigoProcesso(Integer.parseInt(tfInscCodProc.getText()));
 				i.atualizarInscricao(inscricao);
 				taInscLista.setText(" INSCRIÇÃO ATUALIZADA COM SUCESSO \n INFORMAÇÕES ATUALIZADAS : " + "\n CPF : "
-						+ inscricao.getCpf() + "\n CODIGO DA DISCIPLINA: " + inscricao.getCodigoDisciplina() +
-						"\n CODIGO DO PROCESSO : " +inscricao.getCodigoProcesso() ); 
+						+ tfInscCPF.getText() + "\n CODIGO DA DISCIPLINA: " + tfInscCodDic.getText() +
+						"\n CODIGO DO PROCESSO : " +tfInscCodProc.getText() ); 
 			} catch (Exception e) {
 				taInscLista.setCaret((Caret) e);
 			}
@@ -141,9 +139,9 @@ public class InscricaoController implements ActionListener {
 				    return;
 				} else {
 					i.inserirInscricao(inscricao);
-					taInscLista.setText(" INSCRIÇÃO CADASTRADO COM SUCESSO \n INFORMAÇÕES CADASTRADAS : " + "\n CPF : "
-							+ inscricao.getCpf() + "\n CODIGO DA DISCIPLINA: " + inscricao.getCodigoDisciplina() +
-							"\n CODIGO DO PROCESSO : " +inscricao.getCodigoProcesso() ); 
+					taInscLista.setText(" INSCRIÇÃO CADASTRADA COM SUCESSO \n INFORMAÇÕES ATUALIZADAS : " + "\n CPF : "
+							+ tfInscCPF.getText() + "\n CODIGO DA DISCIPLINA: " + tfInscCodDic.getText() +
+							"\n CODIGO DO PROCESSO : " +tfInscCodProc.getText() ); 
 				}	
 			} catch (Exception e) {
 				taInscLista.setCaret((Caret) e);

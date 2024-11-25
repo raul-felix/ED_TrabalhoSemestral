@@ -97,7 +97,7 @@ public class ProfessorController implements ActionListener {
 			long codigo = Long.parseLong(tfProfCPF.getText()) ; 
 			try {
 				p.removerProfessor(codigo);
-				taProfLista.setText(" PROFESSOR SOBRE O CPF "+professor.getCpf()+ "  REMOVIDO COM SUCESSO "); 
+				taProfLista.setText(" PROFESSOR SOBRE O CPF "+tfProfCPF.getText()+ "  REMOVIDO COM SUCESSO "); 
 			} catch (Exception e) {
 				taProfLista.setCaret((Caret) e);
 			}
@@ -123,9 +123,9 @@ public class ProfessorController implements ActionListener {
 				professor.setQtdPontos(Integer.parseInt(tfProfPont.getText()) );
 				professor.setCodigoProfessor(professor.hashCode());
 				p.atualizarProfessor(professor);
-				taProfLista.setText(" CURSO ATUALIZADO COM SUCESSO \n INFORMAÇÕES CADASTRADAS : " + "\n NOME : "
-						+ professor.getNomeProfessor() + "\n CPF: " + professor.getCpf() +
-						"\n AREA DO CONHECIMENTO : " +professor.getAreaConhecimento() + "\n QUANTIDADE DE PONTOS : " +professor.getQtdPontos() 
+				taProfLista.setText("PROFESSOR atualizado COM SUCESSO \n INFORMAÇÕES CADASTRADAS : " + "\n NOME : "
+						+ tfProfNome.getText() + "\n CPF: " + tfProfCPF.getText() +
+						"\n AREA DO CONHECIMENTO : " +tfProfAreaCon.getText() + "\n QUANTIDADE DE PONTOS : " +tfProfPont.getText() 
 						); 
 			} catch (Exception e) {
 				taProfLista.setCaret((Caret) e);
@@ -156,9 +156,9 @@ public class ProfessorController implements ActionListener {
 				    return;
 				}
 				p.inserirProfessor(professor);
-				taProfLista.setText("PROFESSOR ATUALIZADO COM SUCESSO \n INFORMAÇÕES CADASTRADAS : " + "\n NOME : "
-						+ professor.getNomeProfessor() + "\n CPF: " + professor.getCpf() +
-						"\n AREA DO CONHECIMENTO : " +professor.getAreaConhecimento() + "\n QUANTIDADE DE PONTOS : " +professor.getQtdPontos() 
+				taProfLista.setText("PROFESSOR CADASTRADO COM SUCESSO \n INFORMAÇÕES CADASTRADAS : " + "\n NOME : "
+						+ tfProfNome.getText() + "\n CPF: " + tfProfCPF.getText() +
+						"\n AREA DO CONHECIMENTO : " +tfProfAreaCon.getText() + "\n QUANTIDADE DE PONTOS : " +tfProfPont.getText() 
 						); 
 			} catch (Exception e) {
 				JOptionPane.showMessageDialog(null, "Erro ao cadastrar professor: " + e.getMessage());
