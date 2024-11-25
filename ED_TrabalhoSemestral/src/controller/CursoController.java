@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
 
 public class CursoController implements ActionListener {
 //Nesta classe temos os metodos que integram a tela "Curso" com os metodos internos do sistemas "CursoDAO"
-//Tambem é aqui que ocorre o tratamento de erro, e retorno responsivo do sistema Destas classes
+//Tambem é aqui que ocorre o tratamento de erro, e retorno responsivo do sistema destas classes
 	
 	private JTextField tfCursosCod;
 	private JTextField tfCursosNome;
@@ -150,6 +150,7 @@ public class CursoController implements ActionListener {
 	    curso.setNomeCurso(tfCursosNome.getText());
 	    curso.setAreaConhecimento(tfCursosAreaConhec.getText());
 	    
+// Verificação de cadastro duplicado e mensagem de erro para usuário.
 	    if (c.cursoJaExiste(curso.getCodigoCurso())) {
 	        JOptionPane.showMessageDialog(null, "O CURSO JÁ ESTÁ CADASTRADO COM O CÓDIGO: " + curso.getCodigoCurso());
 	        return;

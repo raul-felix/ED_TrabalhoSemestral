@@ -97,6 +97,7 @@ public class DisciplinaDAO {
             // Lê o arquivo linha por linha.
             while ((linha = leitor.readLine()) != null) {
                 String[] dados = linha.split(";");
+             // Pega a primeira coluna do arquivo e compara se já existe um cadastro com o código da disciplina.
                 if (dados.length > 0 && Integer.parseInt(dados[0]) == codigoDisciplina) {
                     return true; // Retorna true se o código já estiver cadastrado.
                 }

@@ -177,7 +177,8 @@ public class DisciplinaController implements ActionListener {
 	            JOptionPane.showMessageDialog(null, "HORÁRIO INVÁLIDO. USE O FORMATO HH:mm.");
 	            return;
 	        }
-
+	        
+	        // Verificação de cadastro duplicado e mensagem de erro para usuário.
 	        if (d.disciplinaJaExiste(disciplina.getCodigoDisciplina())) {
 	            JOptionPane.showMessageDialog(null, "FALHA NO CADASTRO: JÁ EXISTE UMA DISCIPLINA COM ESTE CÓDIGO.");
 	            return;

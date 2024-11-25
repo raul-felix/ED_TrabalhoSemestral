@@ -134,6 +134,7 @@ public class InscricaoController implements ActionListener {
 				inscricao.setCpf(tfInscCPF.getText());
 				inscricao.setCodigoDisciplina(Integer.parseInt(tfInscCodDic.getText()));
 				inscricao.setCodigoProcesso(Integer.parseInt(tfInscCodProc.getText()));
+				// Verificação de cadastro duplicado e mensagem de erro para usuário.
 				if (i.inscricaoJaExiste(tfInscCPF.getText())) {
 				    JOptionPane.showMessageDialog(null, "Inscrição já realizada com o CPF: " + inscricao.getCpf());
 				    return;

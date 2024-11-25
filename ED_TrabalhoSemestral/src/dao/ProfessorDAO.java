@@ -95,9 +95,9 @@ public class ProfessorDAO {
 
             leitor.readLine(); // Ignora a primeira linha (cabeçalho)
 
-            // Lê linha por linha para verificar se o CPF já existe
             while ((linha = leitor.readLine()) != null) {
                 String[] dados = linha.split(";");
+             // Pega a segunda coluna do arquivo e compara se já existe um cadastro com o mesmo CPF.
                 if (dados.length > 1 && dados[1].equals(cpf)) {
                     return true; // Se o CPF for encontrado, retorna verdadeiro
                 }

@@ -91,6 +91,7 @@ public class CursoDAO {
             String linha;
             while ((linha = leitor.readLine()) != null) {
                 String[] dados = linha.split(";");
+                // Pega a primeira coluna do arquivo e compara se já existe um cadastro com o código do curso.
                 if (dados.length > 0 && Integer.parseInt(dados[0]) == codigoCurso) {
                     return true; // Retorna true se o curso for encontrado.
                 }

@@ -95,6 +95,7 @@ public class InscricaoDAO {
 
             while ((linha = leitor.readLine()) != null) {
                 String[] dados = linha.split(";");
+             // Pega a primeira coluna do arquivo e compara se já existe um cadastro com o mesmo CPF.
                 if (dados.length > 0 && dados[0].equals(cpf)) {
                     return true; // CPF encontrado.
                 }

@@ -151,6 +151,7 @@ public class ProfessorController implements ActionListener {
 				professor.setAreaConhecimento(tfProfAreaCon.getText());
 				professor.setQtdPontos(Integer.parseInt(tfProfPont.getText()) );
 				professor.setCodigoProfessor(professor.hashCode());
+				// Verificação de cadastro duplicado e mensagem de erro para usuário.
 				if (p.professorJaExiste(tfProfCPF.getText())) {
 					 JOptionPane.showMessageDialog(null, "Inscrição já realizada com o CPF: " + professor.getCpf());
 				    return;
